@@ -4,4 +4,4 @@ Project of a phoenix based CMS.
 
 ## Credits
 
-[Clover Lab](http://clover-lab.com
+[Clover Lab](http://clover-lab.com)
