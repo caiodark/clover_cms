@@ -12,6 +12,12 @@ defmodule CloverCms.Router do
   pipeline :api do
     plug :accepts, ["json"]
   end
+  
+  scope "/admin", as: :admin do
+    pipe_through :browser
+
+    get "/", CloverCms.Admin.AdminController, :index # Start point for the SPA
+  end
 
   scope "/", CloverCms do
     pipe_through :browser # Use the default browser stack
