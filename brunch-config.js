@@ -2,7 +2,11 @@ exports.config = {
   // See http://brunch.io/#documentation for docs.
   files: {
     javascripts: {
-      joinTo: "js/app.js"
+      joinTo: {
+	"js/npm/vendor.js": /^(web\/static\/vendor)|(node_modules)|(deps)/,
+	"js/app.js":/^(web\/static\/js)/,
+	"js/admin.js":/^(web\/static\/admin\/js)/
+      }
 
       // To use a separate vendor.js bundle, specify two files path
       // http://brunch.io/docs/config#-files-
@@ -22,7 +26,7 @@ exports.config = {
     stylesheets: {
       joinTo: "css/app.css",
       order: {
-        after: ["web/static/css/app.css"] // concat app.css last
+        after: ["web/static/app/css/app.css"] // concat app.css last
       }
     },
     templates: {
@@ -54,18 +58,21 @@ exports.config = {
     babel: {
       presets: ["es2015", "react"],
       // Do not use ES6 compiler in vendor code
-      ignore: [/web\/static\/vendor/]
+      ignore: [
+	/web\/static\/vendor/
+      ]
     }
   },
 
   modules: {
     autoRequire: {
-      "js/app.js": ["web/static/js/app"]
+      "js/app.js": ["web/static/js/app"],
+      "js/admin.js": ["web/static/admin/js/admin"]
     }
   },
 
   npm: {
     enabled: true,
-    whitelist: ["react", "react-dom"]
+    whitelist: ["react", "react-dom","redux","react-redux"]
   }
 };
