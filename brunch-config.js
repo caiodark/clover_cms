@@ -24,10 +24,12 @@ exports.config = {
       // }
     },
     stylesheets: {
-      joinTo: "css/app.css",
+      joinTo: {
+	"css/app.css": /^(web\/static\/css)/
+      }/*,
       order: {
         after: ["web/static/app/css/app.css"] // concat app.css last
-      }
+      }*/
     },
     templates: {
       joinTo: "js/app.js"
@@ -59,7 +61,8 @@ exports.config = {
       presets: ["es2015", "react"],
       // Do not use ES6 compiler in vendor code
       ignore: [
-	/web\/static\/vendor/
+	/web\/static\/vendor/,
+	/web\/static\/admin\/vendor/
       ]
     }
   },
@@ -70,7 +73,6 @@ exports.config = {
       "js/admin.js": ["web/static/admin/js/admin"]
     }
   },
-
   npm: {
     enabled: true,
     whitelist: ["react", "react-dom","redux","react-redux"]

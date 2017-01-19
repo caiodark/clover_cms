@@ -7,10 +7,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <link rel="stylesheet" href="<%= static_path(@conn, "/css/app.css") %>">
   </head>
 
-  <body>
+  <body class="">
     <%= render @view_module, @view_template, assigns %>
     <script src="<%= static_path(@conn, "/js/npm/vendor.js") %>"></script>
     <script src="<%= static_path(@conn, "/js/admin.js") %>"></script>
