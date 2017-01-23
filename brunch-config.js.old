@@ -3,18 +3,11 @@ exports.config = {
   files: {
     javascripts: {
       joinTo: {
-	"js/npm/vendor.js": /^(web\/static\/vendor)|(node_modules)|(deps)/,
+	"js/npm/vendor.js": /^(web\/static\/vendor)|(?!admin)|(deps)/,
 	"js/app.js":/^(web\/static\/js)/,
 	"js/admin.js":/^(web\/static\/admin\/js)/
       }
 
-      // To use a separate vendor.js bundle, specify two files path
-      // http://brunch.io/docs/config#-files-
-      // joinTo: {
-      //  "js/app.js": /^(web\/static\/js)/,
-      //  "js/vendor.js": /^(web\/static\/vendor)|(deps)/
-      // }
-      //
       // To change the order of concatenation of files, explicitly mention here
       // order: {
       //   before: [
@@ -58,7 +51,7 @@ exports.config = {
   // Configure your plugins
   plugins: {
     babel: {
-      presets: ["es2015", "react"],
+      presets: ["es2015", "react","es2016"],
       // Do not use ES6 compiler in vendor code
       ignore: [
 	/web\/static\/vendor/,

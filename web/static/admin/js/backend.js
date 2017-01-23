@@ -1,12 +1,16 @@
-import React from "react";
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
+import React from "react"
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
+import RaisedButton from 'material-ui/RaisedButton'
+import { Router, Route, browserHistory} from "react-router"
+import HiButton from './hibutton'
 
-export default class BackEnd extends React.Component {
-  render () {
-    return (<MuiThemeProvider>
-	     <RaisedButton label="Ciao"/>
-	    </MuiThemeProvider>
-	   );
-  }
+const Noop = () => {
 }
+
+const BackEnd = () => (
+  <Router history={browserHistory} component={Noop}>
+   <Route path="/admin" component={HiButton} />
+  </Router>
+)
+
+export default BackEnd
