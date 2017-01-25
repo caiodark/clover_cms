@@ -11,8 +11,9 @@ config :clover_cms, CloverCms.Endpoint,
   debug_errors: true,
   code_reloader: true,
   check_origin: false,
-  watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
-                    cd: Path.expand("../", __DIR__)]]
+  watchers: [npm: ["run", "watch"]]
+  #watchers: [node: ["node_modules/brunch/bin/brunch", "watch", "--stdin",
+  #                  cd: Path.expand("../", __DIR__)]]
 
 
 # Watch static and templates for browser reloading.
@@ -24,7 +25,8 @@ config :clover_cms, CloverCms.Endpoint,
       ~r{web/views/.*(ex)$},
       ~r{web/templates/.*(eex)$}
     ]
-  ]
+  ]#,
+  #watchers: [npm: ["run", "watch"]]
 
 # Do not include metadata nor timestamps in development logs
 config :logger, :console, format: "[$level] $message\n"
@@ -41,3 +43,4 @@ config :clover_cms, CloverCms.Repo,
   database: "clover_cms_dev",
   hostname: "localhost",
   pool_size: 10
+
