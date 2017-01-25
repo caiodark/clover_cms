@@ -15,6 +15,11 @@ module.exports = {
 	query: {
 	  presets: ['es2015','react','es2016']
 	}
+      },
+      {
+	test: /.css$/,
+	loader: 'style!css?modules',
+	include: /flexboxgrid/
       }
     ]
   },
