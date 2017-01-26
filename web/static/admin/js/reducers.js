@@ -1,5 +1,6 @@
 import { LOGIN, LOGOUT } from './actionTypes'
 import {login, logout} from './actions'
+import {browserHistory} from 'react-router'
 
 const initialState = {
   user: {
@@ -12,6 +13,7 @@ export function cmsApp(state = initialState, action)
   switch (action.type)
   {
     case LOGIN:
+      browserHistory.push("/admin")
       return Object.assign({}, state, {
         user: {
 	  username: action.username,
@@ -19,6 +21,7 @@ export function cmsApp(state = initialState, action)
 	}
       })
     case LOGOUT:
+      browserHistory.push("/admin/login")
       return initialState
     default:
       return initialState
