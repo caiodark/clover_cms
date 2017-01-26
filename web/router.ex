@@ -16,7 +16,8 @@ defmodule CloverCms.Router do
   scope "/admin", as: :admin do
     pipe_through :browser
 
-    get "/", CloverCms.Admin.AdminController, :index # Start point for the SPA
+    get "/"    , CloverCms.Admin.AdminController, :index # Start point for the SPA
+    get "/:any", CloverCms.Admin.AdminController, :index # Start point for the SPA
   end
 
   scope "/", CloverCms do
