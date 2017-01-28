@@ -7,6 +7,7 @@ import {Grid, Row, Col} from 'react-flexbox-grid'
 import {Card, CardTitle, CardText, CardActions} from 'material-ui/Card'
 import {connect} from 'react-redux'
 import {login} from './actions'
+import CAppHeader from './containerAppHeader.js'
 
 let cardStyle = 
 {
@@ -19,11 +20,7 @@ let pass
 let LoginCard = ({dispatch}) => (
   <MuiThemeProvider>
     <Grid>
-      <Row>
-        <Col xs={12}>
-          <AppBar title="CloverLab CMS" />
-        </Col>
-      </Row>
+      <CAppHeader />
       <Row>
         <Col mdOffset={3} md={6} xs={12} style={cardStyle}>
 	  <form onSubmit={e => {

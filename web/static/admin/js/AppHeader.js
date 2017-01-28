@@ -3,17 +3,17 @@ import {Row, Col} from 'react-flexbox-grid'
 import AppBar from 'material-ui/AppBar'
 import IconMenu from 'material-ui/IconMenu'
 import IconButton from 'material-ui/IconButton'
-import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert'
+import AccountCircleIcon from 'material-ui/svg-icons/action/account-circle'
 import MenuItem from 'material-ui/MenuItem'
+import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
 
 
-
-const AppHeader = ({user, onLogOutClick}) => {
+const AppHeader = ({user, onLogOutClick, onHamburgerMenuClick}) => {
 
   const Logged = (props) => (
     <IconMenu
       {...props}
-      iconButtonElement={<IconButton><MoreVertIcon /></IconButton>}
+      iconButtonElement={<IconButton><AccountCircleIcon /></IconButton>}
       anchorOrigin={{horizontal:'right', vertical:'top'}}
       targetOrigin={{horizontal:'right', vertical:'top'}}
     >
@@ -24,7 +24,9 @@ const AppHeader = ({user, onLogOutClick}) => {
   return (
     <Row>
       <Col xs={12}>
-        <AppBar title="CloverLab CMS" iconElementRight={user.loggedIn === true ? <Logged /> : <span/>}/>
+        <AppBar title="CloverLab CMS" 
+	        iconElementLeft={<IconButton onClick={() => onHamburgerMenuClick()}><NavigationMenu /></IconButton>} 
+		iconElementRight={user.loggedIn === true ? <Logged /> : <span/>}/>
       </Col>
     </Row>
   )
@@ -35,7 +37,8 @@ AppHeader.propTypes = {
     username: PropTypes.string,
     loggedIn: PropTypes.bool.isRequired
   }),
-  onLogOutClick : PropTypes.func.isRequired
+  onLogOutClick : PropTypes.func.isRequired,
+  onHamburgerMenuClick : PropTypes.func.isRequired
 }
 
 export default AppHeader
