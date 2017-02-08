@@ -19,8 +19,9 @@ let pass
 
 let LoginCard = ({dispatch}) => (
   <MuiThemeProvider>
+    <div>
+    <CAppHeader />
     <Grid>
-      <CAppHeader />
       <Row>
         <Col mdOffset={3} md={6} xs={12} style={cardStyle}>
 	  <form onSubmit={e => {
@@ -46,6 +47,7 @@ let LoginCard = ({dispatch}) => (
 	</Col>
       </Row>
     </Grid>
+    </div>
   </MuiThemeProvider>
 )
 

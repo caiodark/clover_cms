@@ -1,5 +1,5 @@
 import { LOGIN, LOGOUT, TOGGLE_DRAWER, GOTO_DASHBOARD } from './actionTypes'
-import {browserHistory} from 'react-router'
+import {hashHistory} from 'react-router'
 
 const initialState = {
   user: {
@@ -19,7 +19,7 @@ export function cmsApp(state = initialState, action)
   switch (action.type)
   {
     case LOGIN:
-      browserHistory.push("/admin")
+      hashHistory.push("/")
       return Object.assign({}, state, {
         user: {
 	  username: action.username,
@@ -27,7 +27,7 @@ export function cmsApp(state = initialState, action)
 	}
       })
     case LOGOUT:
-      browserHistory.push("/admin/login")
+      hashHistory.push("/login")
       return initialState
     case TOGGLE_DRAWER:
       if (state.user.loggedIn === true)
@@ -41,7 +41,7 @@ export function cmsApp(state = initialState, action)
 	return state
       }
     case GOTO_DASHBOARD:
-      browserHistory.push("/admin")
+      hashHistory.push("/")
       return Object.assign({}, state, {
 	ui:{drawer: false}
       })

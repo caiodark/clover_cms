@@ -1,5 +1,4 @@
 import React, {PropTypes} from 'react'
-import {Row, Col} from 'react-flexbox-grid'
 import AppBar from 'material-ui/AppBar'
 import IconMenu from 'material-ui/IconMenu'
 import IconButton from 'material-ui/IconButton'
@@ -22,13 +21,9 @@ const AppHeader = ({user, onLogOutClick, onHamburgerMenuClick}) => {
   )
 
   return (
-    <Row>
-      <Col xs={12}>
-        <AppBar title="CloverLab CMS" 
-	        iconElementLeft={<IconButton onClick={() => onHamburgerMenuClick()}><NavigationMenu /></IconButton>} 
-		iconElementRight={user.loggedIn === true ? <Logged /> : <span/>}/>
-      </Col>
-    </Row>
+    <AppBar title="CloverLab CMS" 
+            iconElementLeft={<IconButton onClick={() => onHamburgerMenuClick()}><NavigationMenu /></IconButton>} 
+            iconElementRight={user.loggedIn === true ? <Logged /> : <span/>}/>
   )
 }
 

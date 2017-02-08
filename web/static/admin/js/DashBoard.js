@@ -7,8 +7,8 @@ import CAppMenu from './CAppMenu.js'
 let DashBoard = () => (
   <MuiThemeProvider>
     <div>
+      <CAppHeader />
       <Grid>
-        <CAppHeader />
         <Row>
           <Col xs={12}>
 	    Ciao
