@@ -19,4 +19,19 @@ defmodule CloverCms.Admin.UserControllerTest do
 
     assert  json_response(conn, 200) == expected
   end
+
+  test "show should return a json representation of a user" do
+    conn = build_conn()
+    us = create_user()
+    expected = %{"data" => %{"id" => us.id, "name"=>"admin", "email"=> "a@b.c", "user_type_id" => us.user_type_id}}
+    conn = get conn, "/api/admin/users/#{us.id}"
+
+    assert json_response(conn, 200) == expected
+  end
+
+  test "show should return 404 if the user doesn't exist" do
+    conn = build_conn()
+    conn = get conn, "/api/admin/users/1"
+    assert conn.status == 404
+  end
 end

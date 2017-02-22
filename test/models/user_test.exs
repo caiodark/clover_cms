@@ -34,20 +34,38 @@ defmodule CloverCms.UserTest do
   end
 
   test "list returns a list of users" do
-    type = UserType.changeset(%UserType{}, %{name: "admin"})
-    case Repo.insert(type) do
-      {:ok, new_type} ->
-        user = User.changeset(%User{}, %{@valid_attrs | user_type_id: new_type.id})
-        case Repo.insert(user) do
-          {:ok, new_user} ->
-            lista = User.list()
-            elemento = hd(lista)
-            assert length(lista) == 1 && elemento.id == new_user.id && elemento.user_type_id == new_user.user_type_id
-          {:error, _user} ->
-            assert "error while create user" == ""
-        end
-      {:error, _type} ->
-        assert "error while creating user type" == ""
-    end
+    us = create_user()
+    lista = User.list()
+    elemento = hd(lista)
+
+    assert length(lista) == 1
+    assert elemento.id == us.id
+    assert elemento.user_type_id == us.user_type_id
+  end
+
+  defp create_user() do
+    utcs = UserType.changeset(%UserType{}, %{name: "admin"})
+    ut = Repo.insert!(utcs)
+    pass = @valid_attrs.password
+    changeset = User.changeset(%User{}, %{@valid_attrs|user_type_id: ut.id, password: User.encrypt_pass(pass)})
+    Repo.insert!(changeset)
+  end
+
+  test "by_id should return a user by its id" do
+    us = create_user()
+    assert User.by_id(us.id) == Repo.get!(User, us.id)
+  end
+
+  test "change password should change a user's password" do
+    us = create_user()
+    User.change_password("test", "nuova", "nuova", us.id)
+    assert User.by_id(us.id).password == User.encrypt_pass("nuova")
+  end
+
+  test "user should authenticate with the right username and password" do
+    us = create_user()
+    username = "admin"
+    password = "test"
+    assert User.authenticate(username, password)
   end
 end
