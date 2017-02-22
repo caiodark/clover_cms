@@ -3,11 +3,17 @@ defmodule CloverCms.Admin.UserControllerTest do
   alias CloverCms.User
   alias CloverCms.UserType
   alias CloverCms.Repo
+  alias CloverCms.Permission
+  alias CloverCms.Role
 
   defp create_user do
+    pr = Permission.changeset(%Permission{}, %{can: "MANAGE", on: "ALL"})
+    newpr = Repo.insert!(pr)
     ut = UserType.changeset(%UserType{}, %{name: "admin"})
     newut = Repo.insert!(ut)
-    us = User.changeset(%User{}, %{name: "admin",password: "123",  email: "a@b.c", user_type_id: newut.id})
+    role = Role.changeset(%Role{}, %{permission_id: newpr.id, user_type_id: newut.id, name: "admin"})
+    Repo.insert!(role)
+    us = User.changeset(%User{}, %{name: "admin",password: User.encrypt_pass("test") ,  email: "a@b.c", user_type_id: newut.id})
     Repo.insert!(us)
   end
   
@@ -33,5 +39,31 @@ defmodule CloverCms.Admin.UserControllerTest do
     conn = build_conn()
     conn = get conn, "/api/admin/users/1"
     assert conn.status == 404
+  end
+
+  test "authenticate with wrong credentials should be prompted with 304" do
+    conn = build_conn()
+    conn = post conn, "/api/admin/users/authenticate", %{"username" => "pippo", "password" => "pluto"}
+    assert conn.status == 304
+  end
+
+  test "authenticate with right credentials shoulb be prompted with 201" do
+    create_user()
+    conn = build_conn()
+           |> post "/api/admin/users/authenticate", %{"username" => "admin", "password" => "test"}
+    assert conn.status == 201
+    assert get_session(conn, :username) == "admin"
+    assert get_session(conn, :permissions) == [%{"can"=>"MANAGE", "on"=>"ALL"}]
+  end
+
+  test "log out from an active session should work" do
+    create_user()
+    conn = build_conn()
+           |> post "/api/admin/users/authenticate", %{"username" => "admin", "password" => "test"}
+    newconn = build_conn()
+              |> get "/api/admin/users/logout"
+    assert newconn.status == 201
+    assert get_session(newconn, :username) == nil
+    assert get_session(newconn, :permissions) == nil
   end
 end

@@ -11,15 +11,21 @@ defmodule CloverCms.Router do
 
   pipeline :api do
     plug :accepts, ["json"]
+    plug :fetch_session
   end
   
   scope "/admin", as: :admin do
     pipe_through :browser
 
     get "/"    , CloverCms.Admin.AdminController, :index # Start point for the SPA
-    get "/:any", CloverCms.Admin.AdminController, :index # Start point for the SPA
   end
 
+  scope "/api/admin/users", as: :admin do
+    pipe_through :api
+    post "/authenticate", CloverCms.Admin.UserController, :authenticate
+    get  "/logout"      , CloverCms.Admin.UserController, :logout
+  end
+  
   scope "/api/admin", as: :admin do
     pipe_through :api
     resources "/users", CloverCms.Admin.UserController

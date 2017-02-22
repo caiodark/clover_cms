@@ -26,6 +26,10 @@ defmodule CloverCms.User do
     Repo.get!(CloverCms.User, id)
   end
 
+  def by_email(email) do
+    Repo.one!(CloverCms.User, email: email)
+  end
+
   def encrypt_pass(pass) do
     Base.encode16(:crypto.hash(:sha256, pass))
   end
@@ -49,7 +53,7 @@ defmodule CloverCms.User do
   def authenticate(username, password) do
     pass = encrypt_pass(password)
     try do
-      Repo.one!(CloverCms.User, username: username, password: pass)
+      Repo.one!(CloverCms.User, [{:email, username}, {:password, pass}])
       true
     rescue
       _  ->

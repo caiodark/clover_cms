@@ -64,8 +64,13 @@ defmodule CloverCms.UserTest do
 
   test "user should authenticate with the right username and password" do
     us = create_user()
-    username = "admin"
+    username = "cbrogliato@gmail.com"
     password = "test"
-    assert User.authenticate(username, password)
+    assert User.authenticate(username, password) == true
+  end
+
+  test "user should be searched by email" do
+    us = create_user()
+    assert User.by_email(us.email) == us
   end
 end
