@@ -1,5 +1,6 @@
 defmodule CloverCms.User do
   use CloverCms.Web, :model
+  alias CloverCms.Repo
 
   schema "users" do
     field :name, :string
@@ -15,5 +16,9 @@ defmodule CloverCms.User do
     |> cast(params, [:name, :email, :password, :user_type_id])
     |> assoc_constraint(:user_type)
     |> validate_required([:name, :email, :password])
+  end
+
+  def list() do
+    CloverCms.User |> Repo.all |> Repo.preload([:user_type, :user_type_roles_permissions])
   end
 end
