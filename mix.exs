@@ -19,7 +19,9 @@ defmodule CloverCms.Mixfile do
   def application do
     [mod: {CloverCms, []},
      applications: [:phoenix, :phoenix_pubsub, :phoenix_html, :cowboy, :logger, :gettext,
-                    :phoenix_ecto, :postgrex]]
+                    :phoenix_ecto, :postgrex],
+     extra_applications: [:crypto]
+    ]
   end
 
   # Specifies which paths to compile per environment.
@@ -36,6 +38,7 @@ defmodule CloverCms.Mixfile do
      {:postgrex, ">= 0.0.0"},
      {:phoenix_html, "~> 2.6"},
      {:phoenix_live_reload, "~> 1.0", only: :dev},
+     {:poison, "~> 2.0"},
      {:gettext, "~> 0.11"},
      {:cowboy, "~> 1.0"}]
   end
