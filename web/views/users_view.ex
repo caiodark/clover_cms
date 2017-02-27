@@ -16,4 +16,8 @@ defmodule CloverCms.Admin.UserView do
   def render("user_strict.json", %{user: user}) do
     %{id: user.id, name: user.name, email: user.email, user_type_id: user.user_type_id}
   end
+
+  def render("authenticate.json", %{name: name, permissions: permissions}) do
+    %{data: %{name: name, permissions: render_many(permissions, CloverCms.Admin.PermissionView, "permission_base.json")}}
+  end 
 end
