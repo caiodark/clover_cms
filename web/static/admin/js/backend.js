@@ -5,13 +5,14 @@ import { Router, Route, hashHistory} from "react-router"
 import LoginCard from './LoginCard'
 import DashBoard from './DashBoard'
 import { Provider } from 'react-redux'
-import { createStore } from 'redux'
+import { createStore, applyMiddleware } from 'redux'
 import { cmsApp } from './reducers'
+import thunkMiddleware from 'redux-thunk'
 
 const Noop = () => {
 }
 
-let store = createStore(cmsApp);
+let store = createStore(cmsApp, applyMiddleware(thunkMiddleware));
 
 const BackEnd = () => (
   <Provider store={store}>

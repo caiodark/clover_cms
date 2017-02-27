@@ -6,16 +6,44 @@ import {browserHistory} from 'react-router'
 jest.dontMock('react-router')
 
 describe('reducers', () => {
-  it('should logout when receive logout action', ()=>{
-    const action = actions.logout()
+  it('should request logout when receive logout_request action', ()=>{
+    const action = actions.logout_request()
     const state = {}
-    const expected = {user:{loggedIn:false}} 
+    const expected = {logout:{isFetching:true}} 
+    expect(cmsApp(state, action).logout).toEqual(expected.logout)
+  })
+  it('should complete logout when receive logout_ok action', ()=>{
+    const action = actions.logout_ok()
+    const state = {}
+    const expected = {logout:{isFetching:false}, user:{isFetching: false, loggedIn: false}} 
+    const result = cmsApp(state, action)
+    expect(result.logout).toEqual(expected.logout)
+    expect(result.user).toEqual(expected.user)
+  })
+  it('should fail logout when receive logout_err action', ()=>{
+    const action = actions.logout_err("errore")
+    const state = {user:{isFetching:false, name:"admin", permissions:[], loggedIn: true}}
+    const expected = {logout:{isFetching:false}, user:state.user} 
+    const result = cmsApp(state, action)
+    expect(result.logout).toEqual(expected.logout)
+    expect(result.user).toEqual(expected.user)
+  })
+  it('should request a login when receive login_request action', ()=>{
+    const action = actions.login_request("test","test")
+    const state = {}
+    const expected = {user:{isFetching: true, loggedIn:false}}
     expect(cmsApp(state, action).user).toEqual(expected.user)
   })
-  it('should login when receive login action', ()=>{
-    const action = actions.login("test","test")
+  it('should fail a login when receive login_err action', ()=>{
+    const action = actions.login_err("test","error")
     const state = {}
-    const expected = {user:{username:"test",loggedIn:true}}
+    const expected = {user:{isFetching: false, loggedIn:false}}
+    expect(cmsApp(state, action).user).toEqual(expected.user)
+  })
+  it('should populate the user when receive login_ok action', ()=>{
+    const action = actions.login_ok("admin",[])
+    const state = {}
+    const expected = {user:{isFetching: false, username: "admin", permissions: [], loggedIn:true}}
     expect(cmsApp(state, action).user).toEqual(expected.user)
   })
   it('shouldn\'t toggle the drawer if a user isn\'t logged in', ()=>{

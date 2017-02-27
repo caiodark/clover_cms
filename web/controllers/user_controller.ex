@@ -28,7 +28,7 @@ defmodule CloverCms.Admin.UserController do
       conn
       |> put_session(:username, user.name)
       |> put_session(:permissions, permissions)
-      |> send_resp(201, "")
+      |> render(name: user.name, permissions: permissions)
     else
       conn
       |> send_resp(304, "")
@@ -38,6 +38,6 @@ defmodule CloverCms.Admin.UserController do
   def logout(conn, _params) do
     conn
     |> clear_session
-    |> send_resp(201, "")
+    |> send_resp(200, "")
   end
 end
