@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import AppHeader from './AppHeader'
-import {logout, toggle_drawer} from './actions'
+import {logout_start, toggle_drawer} from './actions'
 
 const getUser = (user) => {
   return user
@@ -15,7 +15,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onLogOutClick : ()=> {
-      dispatch(logout())
+      dispatch(logout_start())
     },
     onHamburgerMenuClick : () => {
       dispatch(toggle_drawer())

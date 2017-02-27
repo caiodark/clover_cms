@@ -27,13 +27,27 @@ export function login_start(username, password)
 {
   return dispatch => {
     dispatch(login_request(username, password))
-    return fetch('https://localhost:3000/api/admin/users/authenticate', {
+    let dataForm = new FormData()
+    dataForm.append("username", username);
+    dataForm.append("password", password);
+    return fetch('http://localhost:4000/api/admin/users/authenticate', {
 	method: 'POST',
-        body: {username, password}	
+        body: dataForm
 	})
       .then(response => response.json())
       .then(json => dispatch(login_ok(json.data.name, json.data.permissions)))
-      .catch(response => dispatch(login_err(username, response.body())))
+      .catch(error => dispatch(login_err(username, error)))
+  }
+}
+
+export function logout_start()
+{
+  return dispatch => {
+    dispatch(logout_request())
+    return fetch('http://localhost:4000/api/admin/users/logout')
+    .then(response => response.text())
+    .then(text => dispatch(logout_ok()))
+    .catch(error => dispatch(logout_err("Unexpected error")))
   }
 }
 

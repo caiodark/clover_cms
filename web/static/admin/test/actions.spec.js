@@ -2,21 +2,55 @@ import * as actions from '../js/actions'
 import * as types   from '../js/actionTypes'
 
 describe('actions', () => {
-  it ('should create an action to Log In', () => {
+  it ('should create an action to request a Log In', () => {
     const username = "test"
     const password = "pass"
     const expected = {
-      type: types.LOGIN,
+      type: types.LOGIN_REQUEST,
       username,
       password
     }
-    expect(actions.login(username, password)).toEqual(expected)
+    expect(actions.login_request(username, password)).toEqual(expected)
   })
-  it ('should create an action to Log out', () => {
+  it ('should create an action to deal with login error', () => {
+    const reason = ""
+    const username = "admin"
     const expected = {
-      type: types.LOGOUT
+      type: types.LOGIN_ERR,
+      username,
+      reason
     }
-    expect(actions.logout()).toEqual(expected)
+    expect(actions.login_err(username, reason)).toEqual(expected)
+  })
+  it ('should create an action to deal with a successful login', () => {
+    const name = "admin"
+    const permissions = []
+    const expected = {
+      type: types.LOGIN_OK,
+      name,
+      permissions
+    }
+    expect(actions.login_ok(name, permissions)).toEqual(expected)
+  })
+  it ('should create an action to request a Log out', () => {
+    const expected = {
+      type: types.LOGOUT_REQUEST
+    }
+    expect(actions.logout_request()).toEqual(expected)
+  })
+  it ('should create an action to deal with Log out error', () => {
+    const reason = ""
+    const expected = {
+      type: types.LOGOUT_ERR,
+      reason
+    }
+    expect(actions.logout_err(reason)).toEqual(expected)
+  })
+  it ('should create an action to manage successful Log out', () => {
+    const expected = {
+      type: types.LOGOUT_OK
+    }
+    expect(actions.logout_ok()).toEqual(expected)
   })
   it ('should create an action to toggle the drawer', () => {
     const expected = {

@@ -38,6 +38,6 @@ defmodule CloverCms.Admin.UserController do
   def logout(conn, _params) do
     conn
     |> clear_session
-    |> send_resp(201, "")
+    |> send_resp(200, "")
   end
 end

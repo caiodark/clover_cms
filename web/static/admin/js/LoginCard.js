@@ -6,7 +6,7 @@ import TextField from 'material-ui/TextField'
 import {Grid, Row, Col} from 'react-flexbox-grid'
 import {Card, CardTitle, CardText, CardActions} from 'material-ui/Card'
 import {connect} from 'react-redux'
-import {login} from './actions'
+import {login_start} from './actions'
 import CAppHeader from './containerAppHeader.js'
 
 let cardStyle = 
@@ -26,7 +26,7 @@ let LoginCard = ({dispatch}) => (
         <Col mdOffset={3} md={6} xs={12} style={cardStyle}>
 	  <form onSubmit={e => {
 	    e.preventDefault()
-	    dispatch(login(user.getValue(), pass.getValue()))
+	    dispatch(login_start(user.getValue(), pass.getValue()))
 	  }}>
 	    <Card>
 	      <CardTitle title="Login" subtitle="CloverLab CMS"/>

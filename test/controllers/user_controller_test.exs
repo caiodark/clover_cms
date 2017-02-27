@@ -63,7 +63,7 @@ defmodule CloverCms.Admin.UserControllerTest do
            |> post("/api/admin/users/authenticate", %{"username" => "admin", "password" => "test"})
     newconn = build_conn()
               |> get("/api/admin/users/logout")
-    assert newconn.status == 201
+    assert newconn.status == 200
     assert get_session(newconn, :username) == nil
     assert get_session(newconn, :permissions) == nil
   end
