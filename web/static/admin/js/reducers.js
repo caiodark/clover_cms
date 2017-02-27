@@ -1,6 +1,7 @@
 import { LOGIN_REQUEST, 
          LOGIN_OK, 
-	 LOGIN_ERR, 
+	 LOGIN_ERR,
+	 LOGIN_REDIRECT, 
 	 LOGOUT_REQUEST, 
 	 LOGOUT_OK, 
 	 LOGOUT_ERR, 
@@ -31,7 +32,6 @@ export function cmsApp(state = initialState, action)
   switch (action.type)
   {
     case LOGIN_OK:
-      hashHistory.push("/")
       return Object.assign({}, state, {
         user: {
 	  isFetching: false,
@@ -40,6 +40,9 @@ export function cmsApp(state = initialState, action)
 	  loggedIn: true
 	}
       })
+    case LOGIN_REDIRECT:
+      hashHistory.push("/")
+      return state
     case LOGIN_REQUEST:
       return Object.assign({}, state, {
         user: {

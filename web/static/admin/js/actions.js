@@ -2,6 +2,7 @@ import fetch from 'isomorphic-fetch'
 import { LOGIN_OK, 
          LOGIN_REQUEST, 
 	 LOGIN_ERR, 
+	 LOGIN_REDIRECT,
 	 LOGOUT_REQUEST,
 	 LOGOUT_OK,
 	 LOGOUT_ERR, 
@@ -11,6 +12,11 @@ import { LOGIN_OK,
 export function login_request(username, password)
 {
   return {type: LOGIN_REQUEST, username, password} 
+}
+
+export function login_redirect()
+{
+  return {type: LOGIN_REDIRECT}
 }
 
 export function login_ok(name, permissions)
@@ -36,6 +42,7 @@ export function login_start(username, password)
 	})
       .then(response => response.json())
       .then(json => dispatch(login_ok(json.data.name, json.data.permissions)))
+      .then(() => dispatch(login_redirect()))
       .catch(error => dispatch(login_err(username, error)))
   }
 }

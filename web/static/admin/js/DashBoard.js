@@ -3,9 +3,8 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider'
 import {Grid, Row, Col} from 'react-flexbox-grid'
 import CAppHeader from './containerAppHeader.js'
 import CAppMenu from './CAppMenu.js'
-import {hashHistory } from 'react-router' 
 
-let DashBoard = (loggedIn) => ( 
+let DashBoard = () => ( 
     <MuiThemeProvider>
       <div>
         <CAppHeader />
@@ -20,9 +19,5 @@ let DashBoard = (loggedIn) => (
       </div>
     </MuiThemeProvider>
 )
-
-DashBoard.propTypes = {
- loggedIn : PropTypes.bool.isRequired,
-}
 
 export default DashBoard
