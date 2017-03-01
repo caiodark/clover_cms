@@ -4,8 +4,9 @@ import IconMenu from 'material-ui/IconMenu'
 import IconButton from 'material-ui/IconButton'
 import AccountCircleIcon from 'material-ui/svg-icons/action/account-circle'
 import MenuItem from 'material-ui/MenuItem'
+import Divider from 'material-ui/Divider'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
-
+import Subheader from 'material-ui/Subheader'
 
 const AppHeader = ({user, onLogOutClick, onHamburgerMenuClick}) => {
 
@@ -16,6 +17,8 @@ const AppHeader = ({user, onLogOutClick, onHamburgerMenuClick}) => {
       anchorOrigin={{horizontal:'right', vertical:'top'}}
       targetOrigin={{horizontal:'right', vertical:'top'}}
     >
+      <Subheader>Salve {user.username}!</Subheader>
+      <Divider inset={ true } />
       <MenuItem primaryText="Log out" onClick={()=> onLogOutClick()}/>
     </IconMenu> 
   )
