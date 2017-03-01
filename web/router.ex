@@ -13,6 +13,13 @@ defmodule CloverCms.Router do
     plug :accepts, ["json"]
     plug :fetch_session
   end
+
+  pipeline :api_authenticated do
+    plug :accepts, ["json"]
+    plug :fetch_session
+    plug :fetch_flash
+    plug CloverCms.Plug.Authenticated
+  end
   
   scope "/admin", as: :admin do
     pipe_through :browser
@@ -27,8 +34,9 @@ defmodule CloverCms.Router do
   end
   
   scope "/api/admin", as: :admin do
-    pipe_through :api
+    pipe_through :api_authenticated
     resources "/users", CloverCms.Admin.UserController
+    resources "/forms", CloverCms.Admin.FormController
   end
 
   scope "/", CloverCms do

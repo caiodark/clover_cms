@@ -21,7 +21,7 @@ defmodule CloverCms.Admin.UserControllerTest do
     conn = build_conn()
     us = create_user()
     expected = %{"data" => [%{"id" => us.id, "name"=> "admin", "email"=> "a@b.c", "type"=> "admin"}]}
-    conn = get conn, "/api/admin/users"
+    conn = get conn, admin_user_path(conn, :index) 
 
     assert  json_response(conn, 200) == expected
   end
@@ -30,21 +30,21 @@ defmodule CloverCms.Admin.UserControllerTest do
     conn = build_conn()
     us = create_user()
     expected = %{"data" => %{"id" => us.id, "name"=>"admin", "email"=> "a@b.c", "user_type_id" => us.user_type_id}}
-    conn = get conn, "/api/admin/users/#{us.id}"
+    conn = get conn, admin_user_path(conn, :show, us.id)
 
     assert json_response(conn, 200) == expected
   end
 
   test "show should return 404 if the user doesn't exist" do
     conn = build_conn()
-    conn = get conn, "/api/admin/users/1"
+    conn = get conn, admin_user_path(conn, :show, 1)
     assert conn.status == 404
   end
 
-  test "authenticate with wrong credentials should be prompted with 304" do
+  test "authenticate with wrong credentials should be prompted with 401" do
     conn = build_conn()
     conn = post conn, "/api/admin/users/authenticate", %{"username" => "pippo", "password" => "pluto"}
-    assert conn.status == 304
+    assert conn.status == 401
   end
 
   test "authenticate with right credentials shoulb be prompted with 200, name and permissions" do

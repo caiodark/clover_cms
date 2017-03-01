@@ -31,7 +31,7 @@ defmodule CloverCms.Admin.UserController do
       |> render(name: user.name, permissions: permissions)
     else
       conn
-      |> send_resp(304, "")
+      |> send_resp(401, "")
     end
   end
 

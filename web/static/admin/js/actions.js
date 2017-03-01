@@ -38,7 +38,8 @@ export function login_start(username, password)
     dataForm.append("password", password);
     return fetch('http://localhost:4000/api/admin/users/authenticate', {
 	method: 'POST',
-        body: dataForm
+        body: dataForm,
+	credentials: 'same-origin'
 	})
       .then(response => response.json())
       .then(json => dispatch(login_ok(json.data.name, json.data.permissions)))
@@ -51,7 +52,7 @@ export function logout_start()
 {
   return dispatch => {
     dispatch(logout_request())
-    return fetch('http://localhost:4000/api/admin/users/logout')
+    return fetch('http://localhost:4000/api/admin/users/logout',{credentials: 'same-origin'})
     .then(response => response.text())
     .then(text => dispatch(logout_ok()))
     .catch(error => dispatch(logout_err("Unexpected error")))

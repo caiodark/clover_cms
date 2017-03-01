@@ -1,4 +1,4 @@
-defmodule CloverCms.FormController do
+defmodule CloverCms.Admin.FormController do
   use CloverCms.Web, :controller
 
   alias CloverCms.Form
@@ -15,7 +15,7 @@ defmodule CloverCms.FormController do
       {:ok, form} ->
         conn
         |> put_status(:created)
-        |> put_resp_header("location", form_path(conn, :show, form))
+        |> put_resp_header("location", admin_form_path(conn, :show, form))
         |> render("show.json", form: form)
       {:error, changeset} ->
         conn
