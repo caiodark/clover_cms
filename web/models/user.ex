@@ -53,7 +53,8 @@ defmodule CloverCms.User do
   def authenticate(username, password) do
     pass = encrypt_pass(password)
     try do
-      Repo.one!(CloverCms.User, [{:email, username}, {:password, pass}])
+      query = from user in CloverCms.User, where: user.email == ^username and user.password == ^pass
+      Repo.one!(query)
       true
     rescue
       _  ->

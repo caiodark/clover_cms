@@ -31,6 +31,6 @@ alias CloverCms.Repo
 Repo.insert! %CloverCms.User{
   name: "admin",
   email: "cbrogliato@gmail.com",
-  password: "zxcv1234",
+  password: CloverCms.User.encrypt_pass("zxcv1234"),
   user_type_id: id_u_t_admin
 }

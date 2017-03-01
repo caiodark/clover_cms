@@ -51,7 +51,7 @@ defmodule CloverCms.Admin.UserControllerTest do
     expected = %{"data" => %{"name" => "admin", "permissions" => [%{"can"=>"MANAGE", "on"=>"ALL"}]}}
     create_user()
     conn = build_conn()
-           |> post("/api/admin/users/authenticate", %{"username" => "admin", "password" => "test"})
+           |> post("/api/admin/users/authenticate", %{"username" => "a@b.c", "password" => "test"})
     assert get_session(conn, :username) == "admin"
     assert get_session(conn, :permissions) == [%{"can"=>"MANAGE", "on"=>"ALL"}]
     assert json_response(conn, 200) == expected 
@@ -60,7 +60,7 @@ defmodule CloverCms.Admin.UserControllerTest do
   test "log out from an active session should work" do
     create_user()
     conn = build_conn()
-           |> post("/api/admin/users/authenticate", %{"username" => "admin", "password" => "test"})
+           |> post("/api/admin/users/authenticate", %{"username" => "a@b.c", "password" => "test"})
     newconn = build_conn()
               |> get("/api/admin/users/logout")
     assert newconn.status == 200
