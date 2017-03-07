@@ -24,6 +24,10 @@ const initialState = {
   pages: [],
   ui: {
     drawer : false
+  },
+  forms : {
+    isFetching: false,
+    list: []
   }
 }
 
@@ -83,6 +87,18 @@ export function cmsApp(state = initialState, action)
       {
 	return state
       }
+    case FORM_REQUEST:
+      return Object.assign({}, state, {
+        forms:{isFetching: true, list: state.forms.list
+      })
+    case FORM_OK:
+      return Object.assign({}, state, {
+        forms:{isFetching: false, list: action.forms}
+      })
+    case FORM_ERR:
+      return Object.assign({}, state, {
+        forms:{isFetching: false, list:[]}
+      })
     case GOTO_DASHBOARD:
       hashHistory.push("/")
       return Object.assign({}, state, {

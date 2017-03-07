@@ -5,7 +5,10 @@ import { LOGIN_OK,
 	 LOGIN_REDIRECT,
 	 LOGOUT_REQUEST,
 	 LOGOUT_OK,
-	 LOGOUT_ERR, 
+	 LOGOUT_ERR,
+	 FORM_REQUEST,
+	 FORM_OK,
+	 FORM_ERR, 
 	 TOGGLE_DRAWER, 
 	 GOTO_DASHBOARD } from './actionTypes'
 
@@ -82,4 +85,19 @@ export function toggle_drawer()
 export function goto_dashboard()
 {
   return {type: GOTO_DASHBOARD}
+}
+
+export function form_request()
+{
+  return {type: FORM_REQUEST}
+}
+
+export function form_ok(forms)
+{
+  return {type: FORM_OK, forms}
+}
+
+export function FORM_err(reason)
+{
+  return {type: FORM_ERR, reason}
 }

@@ -3,6 +3,7 @@ defmodule CloverCms.Form do
 
   schema "forms" do
     field :name, :string
+    field :defMessage, :string, default: ""
 
     timestamps()
   end
@@ -12,7 +13,7 @@ defmodule CloverCms.Form do
   """
   def changeset(struct, params \\ %{}) do
     struct
-    |> cast(params, [:name])
+    |> cast(params, [:name, :defMessage])
     |> validate_required([:name])
   end
 end
