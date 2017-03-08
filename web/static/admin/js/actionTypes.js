@@ -9,9 +9,10 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_OK      = 'LOGOUT_OK'
 export const LOGOUT_ERR     = 'LOGOUT_ERR'
 
-export conts FORM_REQUEST = 'FORM_REQUEST'
-export conts FORM_OK      = 'FORM_OK'
+export const FORM_REQUEST = 'FORM_REQUEST'
+export const FORM_OK      = 'FORM_OK'
 export const FORM_ERR     = 'FORM_ERR'
+export const FORMS_REDIRECT = 'FORM_REDIRECT'
 
 /*
  * ROUTING
@@ -19,3 +20,4 @@ export const FORM_ERR     = 'FORM_ERR'
 
 export const GOTO_LOGIN = 'GOTO_LOGIN'
 export const GOTO_DASHBOARD = 'GOTO_DASHBOARD'
+export const CLOSE_DRAWER = 'CLOSE_DRAWER'

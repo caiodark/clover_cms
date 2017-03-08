@@ -64,4 +64,30 @@ describe('reducers', () => {
     const expected = {ui:{drawer:false}}
     expect(cmsApp(state,action).ui).toEqual(expected.ui)
   })
+  it('should deal with a form request', ()=>{
+    const action = actions.form_request()
+    const state = {forms:{isFetching:false, list:[]}}
+    const expected = {forms:{isFetching:true, list:[]}}
+    expect(cmsApp(state, action).forms).toEqual(expected.forms)
+  })
+  it('should deal with a received form', ()=>{
+    const list = [{a:""}]
+    const action = actions.form_ok(list)
+    const state = {forms:{isFetching:true, list: []}}
+    const expected = {forms:{isFetching:false, list}}
+    expect(cmsApp(state, action).forms).toEqual(expected.forms)
+  })
+  it('should deal with an error while fetching form', ()=> {
+    const error = "Unknowen error"
+    const action = actions.form_err(error)
+    const state = {forms:{isFetching:true, list: []}}
+    const expected = {forms:{isFetching:false, list: []}}
+    expect(cmsApp(state, action).forms).toEqual(expected.forms)
+  })
+  it('should close the drawer', () => {
+    const action = actions.close_drawer()
+    const state = {ui:{drawer:true}}
+    const expected = {ui:{drawer:false}}
+    expect(cmsApp(state,action).ui).toEqual(expected.ui)
+  })
 })

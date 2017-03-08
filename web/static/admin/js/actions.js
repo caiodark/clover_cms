@@ -1,35 +1,24 @@
 import fetch from 'isomorphic-fetch'
-import { LOGIN_OK, 
-         LOGIN_REQUEST, 
-	 LOGIN_ERR, 
-	 LOGIN_REDIRECT,
-	 LOGOUT_REQUEST,
-	 LOGOUT_OK,
-	 LOGOUT_ERR,
-	 FORM_REQUEST,
-	 FORM_OK,
-	 FORM_ERR, 
-	 TOGGLE_DRAWER, 
-	 GOTO_DASHBOARD } from './actionTypes'
+import * as types from './actionTypes'
 
 export function login_request(username, password)
 {
-  return {type: LOGIN_REQUEST, username, password} 
+  return {type: types.LOGIN_REQUEST, username, password} 
 }
 
 export function login_redirect()
 {
-  return {type: LOGIN_REDIRECT}
+  return {type: types.LOGIN_REDIRECT}
 }
 
 export function login_ok(name, permissions)
 {
-  return {type: LOGIN_OK, name, permissions}
+  return {type: types.LOGIN_OK, name, permissions}
 }
 
 export function login_err(username, reason)
 {
-  return {type: LOGIN_ERR, username, reason}
+  return {type: types.LOGIN_ERR, username, reason}
 }
 
 export function login_start(username, password)
@@ -55,7 +44,7 @@ export function logout_start()
 {
   return dispatch => {
     dispatch(logout_request())
-    return fetch('http://localhost:4000/api/admin/users/logout',{credentials: 'same-origin'})
+    return fetch('/api/admin/users/logout',{credentials: 'same-origin'})
     .then(response => response.text())
     .then(text => dispatch(logout_ok()))
     .catch(error => dispatch(logout_err("Unexpected error")))
@@ -64,40 +53,64 @@ export function logout_start()
 
 export function logout_request()
 {
-  return {type: LOGOUT_REQUEST}
+  return {type: types.LOGOUT_REQUEST}
 }
 
 export function logout_ok()
 {
-  return {type: LOGOUT_OK}
+  return {type: types.LOGOUT_OK}
 }
 
 export function logout_err(reason)
 {
-  return {type: LOGOUT_ERR, reason}
+  return {type: types.LOGOUT_ERR, reason}
 }
 
 export function toggle_drawer()
 {
-  return {type: TOGGLE_DRAWER}
+  return {type: types.TOGGLE_DRAWER}
 }
 
 export function goto_dashboard()
 {
-  return {type: GOTO_DASHBOARD}
+  return {type: types.GOTO_DASHBOARD}
+}
+
+export function form_start()
+{
+  return dispatch => {
+    dispatch(form_request())
+    return fetch('/api/admin/forms', {
+	credentials: 'same-origin'
+	})
+    .then(response => response.json())
+    .then(json => dispatch(form_ok(json.data)))
+    .then(() => dispatch(forms_redirect()))
+    .catch(error => dispatch(form_err("Unexpected error")))
+  }
 }
 
 export function form_request()
 {
-  return {type: FORM_REQUEST}
+  return {type: types.FORM_REQUEST}
 }
 
 export function form_ok(forms)
 {
-  return {type: FORM_OK, forms}
+  return {type: types.FORM_OK, forms}
 }
 
-export function FORM_err(reason)
+export function form_err(reason)
 {
-  return {type: FORM_ERR, reason}
+  return {type: types.FORM_ERR, reason}
+}
+
+export function forms_redirect()
+{
+  return {type: types.FORMS_REDIRECT}
+}
+
+export function close_drawer()
+{
+  return {type: types.CLOSE_DRAWER}
 }

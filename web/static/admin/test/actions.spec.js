@@ -64,4 +64,36 @@ describe('actions', () => {
     }
     expect(actions.goto_dashboard()).toEqual(expected)
   })
+  it ('should create an action to request forms'), () => {
+    const expected = {
+      type: types.FORM_REQUEST
+    }
+    expect(actions.form_request()).toEqual(expected)
+  }
+  it ('should create an action to process forms'), () => {
+    const expected = {
+      type: types.FORM_OK,
+      forms: []
+    }
+    expect(actions.form_ok([])).toEqual(expected)
+  }
+  it ('should create an action to process forms error'), () => {
+    const expected = {
+      type: types.FORM_ERR,
+      error: "error"
+    }
+    expect(actions.form_err("error")).toEqual(expected)
+  }
+  it ('should create an action to redirect to forms page', () => {
+    const expected = {
+      type: types.FORMS_REDIRECT
+    }
+    expect(actions.forms_redirect()).toEqual(expected)
+  })
+  it ('should create an action to close the drawer'), () => {
+    const expected = {
+      type: types.CLOSE_DRAWER
+    }
+    expect(actions.close_drawer()).toEqual(expected)
+  }
 })
