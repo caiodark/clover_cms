@@ -96,4 +96,10 @@ describe('actions', () => {
     }
     expect(actions.close_drawer()).toEqual(expected)
   }
+  it ('should create an action to create a new form'), () => {
+    const expected = {
+      type: types.FORM_NEW
+    }
+    expect(actions.form_new()).toEqual(expected)
+  }
 })

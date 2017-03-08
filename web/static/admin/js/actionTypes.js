@@ -14,6 +14,8 @@ export const FORM_OK      = 'FORM_OK'
 export const FORM_ERR     = 'FORM_ERR'
 export const FORMS_REDIRECT = 'FORM_REDIRECT'
 
+export const FORM_NEW     = 'FORM_NEW'
+
 /*
  * ROUTING
  */

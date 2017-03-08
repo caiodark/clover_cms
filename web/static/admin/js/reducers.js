@@ -103,6 +103,9 @@ export function cmsApp(state = initialState, action)
       return Object.assign({}, state, {
 	ui:{drawer: false}
       })
+    case types.FORM_NEW:
+      hashHistory.push("/forms/new")
+      return state
     default:
       return initialState
   }

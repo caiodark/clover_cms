@@ -114,3 +114,8 @@ export function close_drawer()
 {
   return {type: types.CLOSE_DRAWER}
 }
+
+export function form_new()
+{
+  return {type: types.FORM_NEW}
+}
