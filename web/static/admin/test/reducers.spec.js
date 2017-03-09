@@ -73,8 +73,8 @@ describe('reducers', () => {
   it('should deal with a received form', ()=>{
     const list = [{a:""}]
     const action = actions.form_ok(list)
-    const state = {forms:{isFetching:true, list: []}}
-    const expected = {forms:{isFetching:false, list}}
+    const state = {forms:{isFetching:true, list: [], view: "list"}}
+    const expected = {forms:{isFetching:false, list, view:"list"}}
     expect(cmsApp(state, action).forms).toEqual(expected.forms)
   })
   it('should deal with an error while fetching form', ()=> {

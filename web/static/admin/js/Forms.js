@@ -8,7 +8,7 @@ import Message from './Message'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
 
-const Forms = ({forms, onNewClicked}) => {
+const Forms = ({forms, view, onNewClicked}) => {
   const sectionName = "Forms"
   
   const noData = () => {
@@ -26,7 +26,24 @@ const Forms = ({forms, onNewClicked}) => {
     top: "25px"
   }
 
+  const listHeader = (
+    <div style={headStyle}>
+      <SectionTitle sectionName={sectionName}/>
+      <FloatingActionButton style={addButtonStyle} onClick={()=>{onNewClicked()}}>
+        <ContentAdd/>
+      </FloatingActionButton>
+    </div>
+  )
+
+  const newHeader = (
+    <div style={headStyle}>
+      <SectionTitle sectionName={sectionName}/>
+    </div>
+  )
+  console.log(view)
   const dataSection = forms === [] ? noData : noData
+
+  let header = view === "list" ? listHeader : newHeader
 
   return (
     <MuiThemeProvider>
@@ -35,12 +52,7 @@ const Forms = ({forms, onNewClicked}) => {
         <Grid>
           <Row>
 	    <Col xs={12}>
-	      <div style={headStyle}>
-	      <SectionTitle sectionName={sectionName}/>
-	      <FloatingActionButton style={addButtonStyle} onClick={()=>{onNewClicked()}}>
-		<ContentAdd/>
-	      </FloatingActionButton>
-	      </div>
+	      {header}
 	    </Col>
 	 </Row>
 	 <Row>
@@ -57,6 +69,7 @@ const Forms = ({forms, onNewClicked}) => {
 
 Forms.propTypes = {
   forms : PropTypes.array.isRequired,
+  view  : PropTypes.string.isRequired,
   onNewClicked: PropTypes.func.isRequired
 }
 

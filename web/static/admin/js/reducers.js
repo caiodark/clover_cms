@@ -19,6 +19,7 @@ const initialState = {
   },
   forms : {
     isFetching: false,
+    view: "",
     list: []
   }
 }
@@ -80,20 +81,24 @@ export function cmsApp(state = initialState, action)
 	return state
       }
     case types.FORM_REQUEST:
+      let form_req = Object.assign({}, state.forms, {isFetching: true, list: state.forms.list})
       return Object.assign({}, state, {
-        forms:{isFetching: true, list: state.forms.list}
+        forms:form_req
       })
     case types.FORM_OK:
+      let form_okk = Object.assign({}, state.forms, {isFetching: false, list: action.forms})
       return Object.assign({}, state, {
-        forms:{isFetching: false, list: action.forms}
+	forms: form_okk
       })
     case types.FORM_ERR:
+      let form_err = Object.assign({}, state.forms, {isFetching: false, list: []})
       return Object.assign({}, state, {
-        forms:{isFetching: false, list:[]}
+        forms: form_err
       })
     case types.FORMS_REDIRECT:
       hashHistory.push("/forms")
-      return state
+      const form_red = Object.assign({}, state.forms, {view: "list"})
+      return Object.assign({}, state, {forms: form_red})
     case types.GOTO_DASHBOARD:
       hashHistory.push("/")
       return Object.assign({}, state, {
@@ -105,7 +110,8 @@ export function cmsApp(state = initialState, action)
       })
     case types.FORM_NEW:
       hashHistory.push("/forms/new")
-      return state
+      let form_new = Object.assign({}, state.forms, {view: "new"})
+      return Object.assign({}, state, {forms: form_new})
     default:
       return initialState
   }

@@ -4,7 +4,8 @@ import {form_new} from './actions'
 
 const mapStateToProps = state => {
   return {
-    forms: state.forms.list
+    forms: state.forms.list,
+    view: state.forms.view
   }
 }
 
