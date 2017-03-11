@@ -7,6 +7,7 @@ import SectionTitle from './SectionTitle'
 import Message from './Message'
 import FloatingActionButton from 'material-ui/FloatingActionButton'
 import ContentAdd from 'material-ui/svg-icons/content/add'
+import FormDetail from './CFormDetail'
 
 const Forms = ({forms, view, onNewClicked}) => {
   const sectionName = "Forms"
@@ -40,10 +41,16 @@ const Forms = ({forms, view, onNewClicked}) => {
       <SectionTitle sectionName={sectionName}/>
     </div>
   )
+  const dataSectionList = forms === [] && list === "list" ? noData : noData
+
+  const dataSectionDetail = () => (
+      <FormDetail/>
+  )
+  
   console.log(view)
-  const dataSection = forms === [] ? noData : noData
 
   let header = view === "list" ? listHeader : newHeader
+  const dataSection = view === "list" ? dataSectionList : dataSectionDetail
 
   return (
     <MuiThemeProvider>

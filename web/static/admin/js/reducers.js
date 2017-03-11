@@ -97,6 +97,7 @@ export function cmsApp(state = initialState, action)
       })
     case types.FORMS_REDIRECT:
       hashHistory.push("/forms")
+      console.log("passato di qui")
       const form_red = Object.assign({}, state.forms, {view: "list"})
       return Object.assign({}, state, {forms: form_red})
     case types.GOTO_DASHBOARD:
