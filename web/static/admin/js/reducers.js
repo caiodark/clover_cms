@@ -19,7 +19,6 @@ const initialState = {
   },
   forms : {
     isFetching: false,
-    view: "",
     list: []
   }
 }
@@ -97,9 +96,8 @@ export function cmsApp(state = initialState, action)
       })
     case types.FORMS_REDIRECT:
       hashHistory.push("/forms")
-      console.log("passato di qui")
-      const form_red = Object.assign({}, state.forms, {view: "list"})
-      return Object.assign({}, state, {forms: form_red})
+      let form_list_st = Object.assign({}, state.forms, {view: "list"})
+      return Object.assign({}, state, {forms: form_list_st})
     case types.GOTO_DASHBOARD:
       hashHistory.push("/")
       return Object.assign({}, state, {
@@ -111,8 +109,8 @@ export function cmsApp(state = initialState, action)
       })
     case types.FORM_NEW:
       hashHistory.push("/forms/new")
-      let form_new = Object.assign({}, state.forms, {view: "new"})
-      return Object.assign({}, state, {forms: form_new})
+      let form_new_st = Object.assign({}, state.forms, {view: "new"})
+      return Object.assign({}, state, {forms: form_new_st})
     default:
       return initialState
   }
