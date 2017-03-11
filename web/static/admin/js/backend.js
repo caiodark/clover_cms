@@ -37,7 +37,6 @@ const BackEnd = () => (
       <Route path="/login" component={LoginCard} />
       <Route path="/" component={DashBoard} onEnter={ AuthReq } />
       <Route path="/forms" component={Forms} onEnter= { CloseDrawerAndAuth(store) } />
-      <Route path="/forms/new" component={Forms} onEnter={AuthReq} />
     </Router>
   </Provider>
 )

@@ -95,9 +95,8 @@ export function cmsApp(state = initialState, action)
         forms: form_err
       })
     case types.FORMS_REDIRECT:
-      hashHistory.push("/forms")
-      let form_list_st = Object.assign({}, state.forms, {view: "list"})
-      return Object.assign({}, state, {forms: form_list_st})
+      hashHistory.push("/forms?view=list")
+      return state
     case types.GOTO_DASHBOARD:
       hashHistory.push("/")
       return Object.assign({}, state, {
@@ -108,9 +107,8 @@ export function cmsApp(state = initialState, action)
 	ui:{drawer: false}
       })
     case types.FORM_NEW:
-      hashHistory.push("/forms/new")
-      let form_new_st = Object.assign({}, state.forms, {view: "new"})
-      return Object.assign({}, state, {forms: form_new_st})
+      hashHistory.push("/forms?view=new")
+      return state
     default:
       return initialState
   }

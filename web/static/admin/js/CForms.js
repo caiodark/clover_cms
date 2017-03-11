@@ -2,10 +2,11 @@ import {connect} from 'react-redux'
 import Forms from './Forms'
 import {form_new} from './actions'
 
-const mapStateToProps = state => {
+const mapStateToProps = (state, ownProps) => {
+  console.log(ownProps)
   return {
     forms: state.forms.list,
-    view: state.forms.view
+    view: ownProps.location.query.view
   }
 }
 
