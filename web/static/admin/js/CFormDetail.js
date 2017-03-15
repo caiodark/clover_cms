@@ -6,8 +6,8 @@ const mapStateToProps = (state) => {
   return {
     formToEdit: {
       id:undefined,
-      name:undefined,
-      defaultMessage:undefined
+      name:"",
+      defaultMessage:""
     }
   }
 }

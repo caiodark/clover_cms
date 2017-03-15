@@ -1,18 +1,33 @@
 import React, {PropTypes} from 'react'
 import TextField from 'material-ui/TextField'
-
-let id
-let name
-let defaultMessage
+import SimpleRichTextEditor from './SimpleRichTextEditor'
+import Paper from 'material-ui/Paper'
+import Legend from './Legend'
 
 const FormDetail = ({formToEdit, onSaveClick, onCancelClick}) =>
 {
 
-return (
-  <div>
-    <TextField floatingLabelText="Nome"/><br/>
-  </div>
-    )
+  const setRteState = (value) => {
+    formToEdit.defaultMessage = value
+  }
+
+  const dvStyle = {
+    marginBottom : "15px"
+  }
+
+  const dvInside = {
+    padding: "10px"
+  }
+
+  return (
+    <Paper style={dvStyle} zDepth={1}>
+      <Legend name={'Base'} />
+      <div style={dvInside}>
+        <TextField floatingLabelText="Nome"/><br/>
+        <SimpleRichTextEditor value={formToEdit.defaultMessage} placeholder={'Testo di ringraziamento'} format={'html'} onChange={setRteState} />
+      </div>
+    </Paper>
+  )
 }
 
 FormDetail.propTypes = {

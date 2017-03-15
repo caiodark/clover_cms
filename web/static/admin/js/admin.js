@@ -11,5 +11,3 @@ ReactDOM.render(
   <BackEnd/>,
   document.getElementById("hello_world")
 );
-
-console.log("Test");
