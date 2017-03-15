@@ -1,5 +1,4 @@
 import * as types  from './actionTypes'
-import {hashHistory} from 'react-router'
 import { combineReducers} from 'redux'
 
 const initialState = {
@@ -36,9 +35,6 @@ export function cmsApp(state = initialState, action)
 	  loggedIn: true
 	}
       })
-    case types.LOGIN_REDIRECT:
-      hashHistory.push("/")
-      return state
     case types.LOGIN_REQUEST:
       return Object.assign({}, state, {
         user: {
@@ -66,8 +62,15 @@ export function cmsApp(state = initialState, action)
 	}
       })
     case types.LOGOUT_OK:
-      hashHistory.push("/login")
-      return initialState
+      return Object.assign({}, state, {
+	logout: {
+	  isFetching: false
+	},
+        user: {
+	  isFetching: false,
+	  loggedIn: false
+	}
+      })
     case types.TOGGLE_DRAWER:
       if (state.user.loggedIn === true)
       {
@@ -87,18 +90,15 @@ export function cmsApp(state = initialState, action)
     case types.FORM_OK:
       let form_okk = Object.assign({}, state.forms, {isFetching: false, list: action.forms})
       return Object.assign({}, state, {
-	forms: form_okk
+	forms: form_okk,
+	ui: {drawer: false}
       })
     case types.FORM_ERR:
       let form_err = Object.assign({}, state.forms, {isFetching: false, list: []})
       return Object.assign({}, state, {
         forms: form_err
       })
-    case types.FORMS_REDIRECT:
-      hashHistory.push("/forms?view=list")
-      return state
     case types.GOTO_DASHBOARD:
-      hashHistory.push("/")
       return Object.assign({}, state, {
 	ui:{drawer: false}
       })
@@ -106,11 +106,8 @@ export function cmsApp(state = initialState, action)
       return Object.assign({}, state, {
 	ui:{drawer: false}
       })
-    case types.FORM_NEW:
-      hashHistory.push("/forms?view=new")
-      return state
     default:
-      return initialState
+      return state
   }
 }
 

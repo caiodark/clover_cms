@@ -4,7 +4,7 @@ import {form_new, form_start} from './actions'
 
 const mapStateToProps = (state, ownProps) => {
   return {
-    forms: state.forms.list,
+    forms: state.cmsApp.forms.list,
     view: ownProps.location.query.view
   }
 }

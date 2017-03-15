@@ -46,7 +46,8 @@ describe('actions', () => {
     }
     expect(actions.logout_err(reason)).toEqual(expected)
   })
-  it ('should create an action to manage successful Log out', () => {
+  it ('should create an action to deal with Log out ok', () => {
+    const reason = ""
     const expected = {
       type: types.LOGOUT_OK
     }

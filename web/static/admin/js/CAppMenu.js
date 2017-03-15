@@ -1,6 +1,6 @@
 import {connect} from 'react-redux'
 import AppMenu from './AppMenu'
-import {toggle_drawer, goto_dashboard, form_start} from './actions'
+import {toggle_drawer, redirect_dashboard, form_start} from './actions'
 
 const getIsDrawerOpen = (ui) => {
   return ui.drawer
@@ -8,14 +8,14 @@ const getIsDrawerOpen = (ui) => {
 
 const mapStateToProps = (state) => {
   return {
-    open: getIsDrawerOpen(state.ui)
+    open: getIsDrawerOpen(state.cmsApp.ui)
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
     onCloseClick : () => {dispatch(toggle_drawer())},
-    onDashboardClick: () => {dispatch(goto_dashboard())},
+    onDashboardClick: () => {dispatch(redirect_dashboard())},
     onFormsClick: () => {dispatch(form_start())}    
   }
 }

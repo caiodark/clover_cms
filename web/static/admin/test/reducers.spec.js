@@ -1,7 +1,7 @@
 import {cmsApp} from '../js/reducers'
 import * as actions from '../js/actions'
 import * as types from '../js/actionTypes'
-import {browserHistory} from 'react-router'
+import {hashHistory} from 'react-router'
 
 jest.dontMock('react-router')
 

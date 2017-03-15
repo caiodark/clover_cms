@@ -23,7 +23,7 @@ const FormDetail = ({formToEdit, onSaveClick, onCancelClick}) =>
     <Paper style={dvStyle} zDepth={1}>
       <Legend name={'Base'} />
       <div style={dvInside}>
-        <TextField floatingLabelText="Nome"/><br/>
+        <TextField floatingLabelText="Nome" value={formToEdit.name} /><br/>
         <SimpleRichTextEditor value={formToEdit.defaultMessage} placeholder={'Testo di ringraziamento'} format={'html'} onChange={setRteState} />
       </div>
     </Paper>

@@ -1,5 +1,7 @@
 import fetch from 'isomorphic-fetch'
 import * as types from './actionTypes'
+import {push} from 'react-router-redux'
+import {batchActions} from 'redux-batched-actions'
 
 export function login_request(username, password)
 {
@@ -35,7 +37,7 @@ export function login_start(username, password)
 	})
       .then(response => response.json())
       .then(json => dispatch(login_ok(json.data.name, json.data.permissions)))
-      .then(() => dispatch(login_redirect()))
+      .then(() => dispatch(push('/')))
       .catch(error => dispatch(login_err(username, error)))
   }
 }
@@ -46,7 +48,7 @@ export function logout_start()
     dispatch(logout_request())
     return fetch('/api/admin/users/logout',{credentials: 'same-origin'})
     .then(response => response.text())
-    .then(text => dispatch(logout_ok()))
+    .then(text => dispatch(logout_success()))
     .catch(error => dispatch(logout_err("Unexpected error")))
   }
 }
@@ -59,6 +61,13 @@ export function logout_request()
 export function logout_ok()
 {
   return {type: types.LOGOUT_OK}
+}
+
+export function logout_success()
+{
+  return dispatch => {
+    dispatch(batchActions([dispatch(push('/login')), dispatch(logout_ok())]))
+  }
 }
 
 export function logout_err(reason)
@@ -76,6 +85,12 @@ export function goto_dashboard()
   return {type: types.GOTO_DASHBOARD}
 }
 
+export function redirect_dashboard(){
+  return (dispatch)=> {
+    dispatch(batchActions([dispatch(push('/')), dispatch(goto_dashboard())]))
+  }
+}
+
 export function form_start()
 {
   return dispatch => {
@@ -85,7 +100,7 @@ export function form_start()
 	})
     .then(response => response.json())
     .then(json => dispatch(form_ok(json.data)))
-    .then(() => dispatch(forms_redirect()))
+    .then(() => dispatch(push('/forms?view=list')))
     .catch(error => dispatch(form_err("Unexpected error")))
   }
 }
@@ -115,7 +130,17 @@ export function close_drawer()
   return {type: types.CLOSE_DRAWER}
 }
 
+export function form_name_change(name)
+{
+  return {type: types.FORM_NAME_CHANGE, name}
+}
+
+export function form_default_message_change(defaultMessage)
+{
+  return {type: types.FORM_DEFAULT_MESSAGE_CHANGE, defaultMessage}
+}
+
 export function form_new()
 {
-  return {type: types.FORM_NEW}
+  return push('/forms?view=new')
 }
