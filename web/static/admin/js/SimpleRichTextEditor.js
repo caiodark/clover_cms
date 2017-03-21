@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import RichTextEditor, {createEmptyValue} from 'react-rte';
 import autobind from 'class-autobind';
 
-import type {EditorValue} from './RichTextEditor';
+import type {EditorValue} from 'react-rte/lib/RichTextEditor';
 
 type Props = {
     value: string;

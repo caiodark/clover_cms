@@ -19,6 +19,12 @@ const initialState = {
   forms : {
     isFetching: false,
     list: []
+  },
+  form_editing: {
+    id: undefined,
+    isSaving: false,
+    name: '',
+    defaultMessage: ''
   }
 }
 
@@ -98,6 +104,13 @@ export function cmsApp(state = initialState, action)
       return Object.assign({}, state, {
         forms: form_err
       })
+    case types.FORM_NAME_CHANGE:
+      let form_name = Object.assign({}, state.form_editing, {name: action.name })
+      return Object.assign({}, state, {form_editing: form_name})
+    case types.FORM_DEFAULT_MESSAGE_CHANGE:
+      console.log(action)
+      let form_def = Object.assign({}, state.form_editing, {defaultMessage: action.defaultMessage})
+      return Object.assign({}, state, {form_editing: form_def})
     case types.GOTO_DASHBOARD:
       return Object.assign({}, state, {
 	ui:{drawer: false}
