@@ -141,9 +141,17 @@ export function close_drawer()
   return {type: types.CLOSE_DRAWER}
 }
 
+export function form_renew()
+{
+  return {type: types.FORM_NEW}
+}
+
 export function form_new()
 {
-  return push('/forms?view=new')
+  return dispatch => {
+    dispatch(form_renew())
+    dispatch(push('/forms?view=new'))
+  }
 }
 
 export function form_save_request()

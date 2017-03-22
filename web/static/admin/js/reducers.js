@@ -130,6 +130,17 @@ export function cmsApp(state = initialState, action)
       } else {
         return state
       }
+    case types.FORM_NEW:
+      return Object.assign({}, state, {form_editing: {
+        id: undefined,
+	name: '',
+	defMessage: '',
+	errors: [{
+	  name: 'name',
+	  error: 'Campo obbligatorio'
+	}],
+	isSaving: false
+      }}) 
     case types.GOTO_DASHBOARD:
       return Object.assign({}, state, {
 	ui:{drawer: false}
