@@ -125,19 +125,14 @@ export function forms_redirect()
   return {type: types.FORMS_REDIRECT}
 }
 
+export function form_change(forms)
+{
+  return {type: types.FORM_CHANGE, forms}
+}
+
 export function close_drawer()
 {
   return {type: types.CLOSE_DRAWER}
-}
-
-export function form_name_change(name)
-{
-  return {type: types.FORM_NAME_CHANGE, name}
-}
-
-export function form_default_message_change(defaultMessage)
-{
-  return {type: types.FORM_DEFAULT_MESSAGE_CHANGE, defaultMessage}
 }
 
 export function form_new()

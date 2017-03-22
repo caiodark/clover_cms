@@ -23,9 +23,22 @@ const initialState = {
   form_editing: {
     id: undefined,
     isSaving: false,
-    name: '',
+    errors : [
+      {
+	name: 'name',
+	error: 'Campo obbligatorio'
+      }
+    ],
+    name : '',
     defaultMessage: ''
   }
+}
+
+const validateFormEditing = (forms) => {
+  let formErrs = []
+  if (! forms.name || forms.name === '')
+    formErrs.push({name: 'name', error:'Campo obbligatorio'})
+  return formErrs
 }
 
 export function cmsApp(state = initialState, action)
@@ -104,13 +117,10 @@ export function cmsApp(state = initialState, action)
       return Object.assign({}, state, {
         forms: form_err
       })
-    case types.FORM_NAME_CHANGE:
-      let form_name = Object.assign({}, state.form_editing, {name: action.name })
-      return Object.assign({}, state, {form_editing: form_name})
-    case types.FORM_DEFAULT_MESSAGE_CHANGE:
-      console.log(action)
-      let form_def = Object.assign({}, state.form_editing, {defaultMessage: action.defaultMessage})
-      return Object.assign({}, state, {form_editing: form_def})
+    case types.FORM_CHANGE:
+      return Object.assign({}, state, {
+	form_editing: Object.assign({}, action.forms, {isSaving: false, errors:validateFormEditing(action.forms)})
+      })
     case types.GOTO_DASHBOARD:
       return Object.assign({}, state, {
 	ui:{drawer: false}

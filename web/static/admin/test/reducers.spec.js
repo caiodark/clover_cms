@@ -84,6 +84,18 @@ describe('reducers', () => {
     const expected = {forms:{isFetching:false, list: []}}
     expect(cmsApp(state, action).forms).toEqual(expected.forms)
   })
+  it('should handle a form change', () => {
+    const action = actions.form_change({name: 'test'})
+    const state = {form_editing: {name: '', isSaving: false, errors : []}}
+    const expected = {form_editing: {name:'test', isSaving: false, errors: []}}
+    expect(cmsApp(state, action).form_editing).toEqual(expected.form_editing)
+  })
+  it('should handle an invalid form change', () => {
+    const action = actions.form_change({name: ''})
+    const state = {form_editing: {name: '', isSaving: false, errors : []}}
+    const expected = {form_editing: {name:'', isSaving: false, errors: [{name: 'name', error:'Campo obbligatorio'}]}}
+    expect(cmsApp(state, action).form_editing).toEqual(expected.form_editing)
+  })
   it('should close the drawer', () => {
     const action = actions.close_drawer()
     const state = {ui:{drawer:true}}

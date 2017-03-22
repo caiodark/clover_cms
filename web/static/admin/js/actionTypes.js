@@ -15,8 +15,7 @@ export const FORM_ERR     = 'FORM_ERR'
 export const FORMS_REDIRECT = 'FORM_REDIRECT'
 
 export const FORM_NEW     = 'FORM_NEW'
-export const FORM_NAME_CHANGE = 'FORM_NAME_CHANGE'
-export const FORM_DEFAULT_MESSAGE_CHANGE = 'FORM_DEFAULT_MESSAGE_CHANGE'
+export const FORM_CHANGE  = 'FORM_CHANGE'
 
 /*
  * ROUTING

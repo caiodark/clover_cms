@@ -35,7 +35,9 @@ export default class SimpleRichTextEditor extends Component {
     _updateStateFromProps(newProps: Props) {
       let {value, format} = newProps;
       if (this._currentValue != null) {
-        let [currentValue, currentFormat] = this._currentValue;
+        let [currentFormat, currentValue] = this._currentValue;
+	console.log(value)
+	console.log(currentValue)
         if (format === currentFormat && value === currentValue) {
           return;
         }

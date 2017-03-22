@@ -103,4 +103,12 @@ describe('actions', () => {
     }
     expect(actions.form_new()).toEqual(expected)
   }
+
+  it ('should create an action to handle form changes'), () => {
+    const expected = {
+      type: types.FORM_CHANGE,
+      forms: {}
+    }
+    expect(actions.form_change({})).toEqual(expected)
+  }
 })
