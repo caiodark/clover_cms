@@ -102,4 +102,29 @@ describe('reducers', () => {
     const expected = {ui:{drawer:false}}
     expect(cmsApp(state,action).ui).toEqual(expected.ui)
   })
+  it('should start saving a form', () => {
+    const action = actions.form_save_request()
+    const state = {form_editing: {isSaving: false}}
+    const expected = {form_editing: {isSaving: true}}
+    expect(cmsApp(state,action).form_editing).toEqual(expected.form_editing)
+  })
+  it('should puts isSaving to false', () => {
+    const action = actions.form_save_ok()
+    const state = {form_editing: {isSaving: true}}
+    const expected = {form_editing: {isSaving: false, errors:[]}}
+    expect(cmsApp(state, action).form_editing).toEqual(expected.form_editing)
+  })
+  it('should puts itSaving to false as well', () => {
+    const action = actions.form_save_err('oh noh')
+    const state = {form_editing: {isSaving: true}}
+    const expected = {form_editing: {isSaving: false, errors:[]}}
+    expect(cmsApp(state, action).form_editing).toEqual(expected.form_editing)
+  })
+  it('should open a form from a list of forms', () => {
+    const action = actions.form_open(1)
+    const state = {forms: {list : [{id: 1, name:'ciao', defMessage:'bah'}]}}
+    const expected = {id: 1, name:'ciao', defMessage:'bah', isSaving: false, errors:[]}
+    expect(cmsApp(state,action).form_editing).toEqual(expected)
+  
+  })
 })

@@ -20,7 +20,7 @@ const RightPanel = (props) => {
       <Legend name={'Pubblicazione'} />
       <div style={dvStyle}>
         <FlatButton label="Salva" secondary={true} style={btnStyle} onClick={props.onSalvaClicked}/>
-        <FlatButton label="Annulla" onClick={props.onAnnullaClicked} />
+        <FlatButton label="Chiudi" onClick={props.onAnnullaClicked} />
       </div>
     </Paper>
   )

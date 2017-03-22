@@ -30,7 +30,7 @@ const initialState = {
       }
     ],
     name : '',
-    defaultMessage: ''
+    defMessage: ''
   }
 }
 
@@ -121,6 +121,15 @@ export function cmsApp(state = initialState, action)
       return Object.assign({}, state, {
 	form_editing: Object.assign({}, action.forms, {isSaving: false, errors:validateFormEditing(action.forms)})
       })
+    case types.FORM_OPEN:
+      let form_about_to_open = state.forms.list.filter(el => el.id === action.id)
+      if (form_about_to_open.length > 0)
+      {
+        let form_open = Object.assign({}, form_about_to_open[0], {isSaving: false, errors:[]})
+	return Object.assign({}, state, {form_editing: form_open}) 
+      } else {
+        return state
+      }
     case types.GOTO_DASHBOARD:
       return Object.assign({}, state, {
 	ui:{drawer: false}
@@ -129,6 +138,15 @@ export function cmsApp(state = initialState, action)
       return Object.assign({}, state, {
 	ui:{drawer: false}
       })
+    case types.FORM_SAVE_REQUEST:
+      let form_save_req = Object.assign({}, state.form_editing, {isSaving: true})
+      return Object.assign({}, state, {form_editing: form_save_req})
+    case types.FORM_SAVE_OK:
+      let form_save_ok = Object.assign({}, action.form, {isSaving: false, errors: []})
+      return Object.assign({}, state, {form_editing: form_save_ok})
+    case types.FORM_SAVE_ERR:
+      let form_save_err = Object.assign({}, state.form_editing, {isSaving: false, errors:[]})
+      return Object.assign({}, state, {form_editing: form_save_err})
     default:
       return state
   }

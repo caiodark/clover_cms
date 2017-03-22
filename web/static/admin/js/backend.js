@@ -11,7 +11,6 @@ import { createStore, applyMiddleware, dispatch, combineReducers} from 'redux'
 import * as reducers from './reducers'
 import thunkMiddleware from 'redux-thunk'
 import {close_drawer} from './actions'
-import {enableBatching} from 'redux-batched-actions'
 
 const Noop = () => {
 }
@@ -23,15 +22,16 @@ const reducer = combineReducers({
 
 let rMiddleware = routerMiddleware(hashHistory)
 let store = createStore(
-  enableBatching(reducer),
+  reducer,
+  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   applyMiddleware(...[rMiddleware, thunkMiddleware])
 )
 
 const history = syncHistoryWithStore(hashHistory, store)
+console.log(history)
 
 const AuthReq = (nextState, replace) => {
   if (store) {
-    console.log(store.getState())
     if (store.getState().cmsApp.user.loggedIn === false) {
       replace("/login", null)
     }

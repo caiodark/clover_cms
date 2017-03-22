@@ -1,7 +1,6 @@
 import fetch from 'isomorphic-fetch'
 import * as types from './actionTypes'
 import {push} from 'react-router-redux'
-import {batchActions} from 'redux-batched-actions'
 
 export function login_request(username, password)
 {
@@ -66,7 +65,8 @@ export function logout_ok()
 export function logout_success()
 {
   return dispatch => {
-    dispatch(batchActions([dispatch(push('/login')), dispatch(logout_ok())]))
+    dispatch(logout_ok())
+    dispatch(push('/login'))
   }
 }
 
@@ -85,9 +85,15 @@ export function goto_dashboard()
   return {type: types.GOTO_DASHBOARD}
 }
 
+function test()
+{
+  return push('/')
+}
+
 export function redirect_dashboard(){
-  return (dispatch)=> {
-    dispatch(batchActions([dispatch(push('/')), dispatch(goto_dashboard())]))
+  return dispatch => {
+    dispatch(goto_dashboard())
+    dispatch(push('/'))
   }
 }
 
@@ -101,7 +107,7 @@ export function form_start()
     .then(response => response.json())
     .then(json => dispatch(form_ok(json.data)))
     .then(() => dispatch(push('/forms?view=list')))
-    .catch(error => dispatch(form_err("Unexpected error")))
+    .catch(error => dispatch(form_err(`Unexpected error ${error}`)))
   }
 }
 
@@ -138,4 +144,61 @@ export function close_drawer()
 export function form_new()
 {
   return push('/forms?view=new')
+}
+
+export function form_save_request()
+{
+  return {type: types.FORM_SAVE_REQUEST}
+}
+
+export function form_save_ok(form)
+{
+  return {type: types.FORM_SAVE_OK, form}
+}
+
+export function form_save_err(reason)
+{
+  return {type: types.FORM_SAVE_ERR, reason }
+}
+
+export function form_open(id)
+{
+  return {type: types.FORM_OPEN, id}
+}
+
+export function form_load(id)
+{
+  return dispatch => {
+    dispatch(form_open(id))
+    dispatch(push(`/forms?view=detail&id=${id}`))
+  }
+}
+
+export function form_edit(form)
+{
+  return dispatch => {
+    dispatch(form_save_ok(form))
+    dispatch(push(`/forms?view=detail&id=${form.id}`))
+  }
+}
+
+export function form_save_start(form)
+{
+  const req = form.id === undefined ? {url:'/api/admin/forms', method:'post'} : {url: `/api/admin/forms/${form.id}`, method: 'put'}
+  debugger
+  return dispatch => {
+    dispatch(form_save_request())
+    return fetch(req.url, {
+      headers: {
+	'Accept': 'application/json',
+	'Content-Type': 'application/json'
+      },
+      method: req.method,
+      body: JSON.stringify({form}),
+      credentials: 'same-origin'
+      })
+    .then(response => response.json())
+    .then(json => dispatch(form_edit(json.data)))
+    .catch(error => dispatch(form_save_err(`Unexpected error ${error}`)))
+  }
 }

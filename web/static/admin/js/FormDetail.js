@@ -4,13 +4,13 @@ import HTMLEditor from './SimpleRichTextEditor'
 import Paper from 'material-ui/Paper'
 import Legend from './Legend'
 
-const FormDetail = ({formToEdit, onSaveClick, onCancelClick, onChange}) =>
+const FormDetail = ({formToEdit, onChange}) =>
 {
   const nameErrors = formToEdit.errors.filter((el) => el.name === 'name')
   const nameError = nameErrors.length > 0 ? nameErrors[0].error : ''
 
   const setRteState = (value) => {
-    var newState = Object.assign({}, formToEdit, {defaultMessage: value})
+    var newState = Object.assign({}, formToEdit, {defMessage: value})
     onChange(newState)
   }
   
@@ -32,7 +32,7 @@ const FormDetail = ({formToEdit, onSaveClick, onCancelClick, onChange}) =>
       <Legend name={'Base'} />
       <div style={dvInside}>
         <TextField floatingLabelText="Nome" value={formToEdit.name} onChange={setName} errorText={nameError}/><br/>
-        <HTMLEditor value={formToEdit.defaultMessage} placeholder={'Testo di ringraziamento'} format={'html'} onChange={setRteState} />
+        <HTMLEditor value={formToEdit.defMessage} placeholder={'Testo di ringraziamento'} format={'html'} onChange={setRteState} />
       </div>
     </Paper>
   )
@@ -48,8 +48,6 @@ FormDetail.propTypes = {
       error: PropTypes.string
     }))
   }),
-  onSaveClick: PropTypes.func.isRequired,
-  onCancelClick: PropTypes.func.isRequired,
   onChange: PropTypes.func.isRequired
 }
 

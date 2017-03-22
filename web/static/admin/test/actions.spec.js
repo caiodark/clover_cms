@@ -111,4 +111,32 @@ describe('actions', () => {
     }
     expect(actions.form_change({})).toEqual(expected)
   }
+
+  it ('should create an action to request form persist'), () => {
+    const expected = {
+      type: types.FORM_SAVE_REQUEST
+    }
+    expect(actions.form_save_request()).toEqual(expected)
+  }
+  it ('should create an action to deal with form persisted'), () => {
+    const expected = {
+      type: types.FORM_SAVE_OK,
+      form: {}
+    }
+    expect(actions.form_save_ok({})).toEqual(expected)
+  }
+  it ('should deal with a form persist call which went wrong'), () => {
+    const expected = {
+      type: types.FORM_SAVE_ERR,
+      reason: ''
+    }
+    expect(actions.form_save_err('')).toEqual(expected)
+  }
+  it ('should create an open form action'), () => {
+    const expected = {
+      type: types.FORM_OPEN,
+      id: 1
+    }
+    expect(actions.form_open(1)).toEqual(expected)
+  }
 })

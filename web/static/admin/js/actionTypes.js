@@ -15,7 +15,11 @@ export const FORM_ERR     = 'FORM_ERR'
 export const FORMS_REDIRECT = 'FORM_REDIRECT'
 
 export const FORM_NEW     = 'FORM_NEW'
+export const FORM_OPEN    = 'FORM_OPEN'
 export const FORM_CHANGE  = 'FORM_CHANGE'
+export const FORM_SAVE_REQUEST = 'FORM_SAVE_REQUEST'
+export const FORM_SAVE_OK      = 'FORM_SAVE_OK'
+export const FORM_SAVE_ERR     = 'FORM_SAVE_ERR'
 
 /*
  * ROUTING
