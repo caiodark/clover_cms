@@ -4,23 +4,31 @@ import IconMenu from 'material-ui/IconMenu'
 import IconButton from 'material-ui/IconButton'
 import AccountCircleIcon from 'material-ui/svg-icons/action/account-circle'
 import MenuItem from 'material-ui/MenuItem'
-import Divider from 'material-ui/Divider'
 import NavigationMenu from 'material-ui/svg-icons/navigation/menu'
-import Subheader from 'material-ui/Subheader'
 
 const AppHeader = ({user, onLogOutClick, onHamburgerMenuClick}) => {
+  const iconStyler = {
+    color: "#ffffff",
+    fill: "#ffffff"
+  }
+
+  const greetStyle = {
+    color: "#ffffff",
+    fontSize: "12px"
+  }
 
   const Logged = (props) => (
+    <div>
+    <span style={greetStyle}>{user.username}</span>
     <IconMenu
       {...props}
-      iconButtonElement={<IconButton><AccountCircleIcon /></IconButton>}
+      iconButtonElement={<IconButton iconStyle={iconStyler}><AccountCircleIcon /></IconButton>}
       anchorOrigin={{horizontal:'right', vertical:'top'}}
       targetOrigin={{horizontal:'right', vertical:'top'}}
     >
-      <Subheader>Salve {user.username}!</Subheader>
-      <Divider inset={ true } />
       <MenuItem primaryText="Log out" onClick={()=> onLogOutClick()}/>
-    </IconMenu> 
+    </IconMenu>
+    </div>
   )
 
   return (

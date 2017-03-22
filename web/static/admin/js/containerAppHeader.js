@@ -8,7 +8,7 @@ const getUser = (user) => {
 
 const mapStateToProps = (state) => {
   return {
-    user: getUser(state.user)
+    user: getUser(state.cmsApp.user)
   }
 }
 

@@ -11,6 +11,7 @@ defmodule CloverCms.Admin.FormView do
 
   def render("form.json", %{form: form}) do
     %{id: form.id,
-      name: form.name}
+      name: form.name,
+      defMessage: form.defMessage}
   end
 end

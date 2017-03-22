@@ -1,7 +1,7 @@
 import {cmsApp} from '../js/reducers'
 import * as actions from '../js/actions'
 import * as types from '../js/actionTypes'
-import {browserHistory} from 'react-router'
+import {hashHistory} from 'react-router'
 
 jest.dontMock('react-router')
 
@@ -63,5 +63,68 @@ describe('reducers', () => {
     const state = {ui:{drawer:true}}
     const expected = {ui:{drawer:false}}
     expect(cmsApp(state,action).ui).toEqual(expected.ui)
+  })
+  it('should deal with a form request', ()=>{
+    const action = actions.form_request()
+    const state = {forms:{isFetching:false, list:[]}}
+    const expected = {forms:{isFetching:true, list:[]}}
+    expect(cmsApp(state, action).forms).toEqual(expected.forms)
+  })
+  it('should deal with a received form', ()=>{
+    const list = [{a:""}]
+    const action = actions.form_ok(list)
+    const state = {forms:{isFetching:true, list: [], view: "list"}}
+    const expected = {forms:{isFetching:false, list, view:"list"}}
+    expect(cmsApp(state, action).forms).toEqual(expected.forms)
+  })
+  it('should deal with an error while fetching form', ()=> {
+    const error = "Unknowen error"
+    const action = actions.form_err(error)
+    const state = {forms:{isFetching:true, list: []}}
+    const expected = {forms:{isFetching:false, list: []}}
+    expect(cmsApp(state, action).forms).toEqual(expected.forms)
+  })
+  it('should handle a form change', () => {
+    const action = actions.form_change({name: 'test'})
+    const state = {form_editing: {name: '', isSaving: false, errors : []}}
+    const expected = {form_editing: {name:'test', isSaving: false, errors: []}}
+    expect(cmsApp(state, action).form_editing).toEqual(expected.form_editing)
+  })
+  it('should handle an invalid form change', () => {
+    const action = actions.form_change({name: ''})
+    const state = {form_editing: {name: '', isSaving: false, errors : []}}
+    const expected = {form_editing: {name:'', isSaving: false, errors: [{name: 'name', error:'Campo obbligatorio'}]}}
+    expect(cmsApp(state, action).form_editing).toEqual(expected.form_editing)
+  })
+  it('should close the drawer', () => {
+    const action = actions.close_drawer()
+    const state = {ui:{drawer:true}}
+    const expected = {ui:{drawer:false}}
+    expect(cmsApp(state,action).ui).toEqual(expected.ui)
+  })
+  it('should start saving a form', () => {
+    const action = actions.form_save_request()
+    const state = {form_editing: {isSaving: false}}
+    const expected = {form_editing: {isSaving: true}}
+    expect(cmsApp(state,action).form_editing).toEqual(expected.form_editing)
+  })
+  it('should puts isSaving to false', () => {
+    const action = actions.form_save_ok()
+    const state = {form_editing: {isSaving: true}}
+    const expected = {form_editing: {isSaving: false, errors:[]}}
+    expect(cmsApp(state, action).form_editing).toEqual(expected.form_editing)
+  })
+  it('should puts itSaving to false as well', () => {
+    const action = actions.form_save_err('oh noh')
+    const state = {form_editing: {isSaving: true}}
+    const expected = {form_editing: {isSaving: false, errors:[]}}
+    expect(cmsApp(state, action).form_editing).toEqual(expected.form_editing)
+  })
+  it('should open a form from a list of forms', () => {
+    const action = actions.form_open(1)
+    const state = {forms: {list : [{id: 1, name:'ciao', defMessage:'bah'}]}}
+    const expected = {id: 1, name:'ciao', defMessage:'bah', isSaving: false, errors:[]}
+    expect(cmsApp(state,action).form_editing).toEqual(expected)
+  
   })
 })

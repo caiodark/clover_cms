@@ -46,7 +46,8 @@ describe('actions', () => {
     }
     expect(actions.logout_err(reason)).toEqual(expected)
   })
-  it ('should create an action to manage successful Log out', () => {
+  it ('should create an action to deal with Log out ok', () => {
+    const reason = ""
     const expected = {
       type: types.LOGOUT_OK
     }
@@ -64,4 +65,78 @@ describe('actions', () => {
     }
     expect(actions.goto_dashboard()).toEqual(expected)
   })
+  it ('should create an action to request forms'), () => {
+    const expected = {
+      type: types.FORM_REQUEST
+    }
+    expect(actions.form_request()).toEqual(expected)
+  }
+  it ('should create an action to process forms'), () => {
+    const expected = {
+      type: types.FORM_OK,
+      forms: []
+    }
+    expect(actions.form_ok([])).toEqual(expected)
+  }
+  it ('should create an action to process forms error'), () => {
+    const expected = {
+      type: types.FORM_ERR,
+      error: "error"
+    }
+    expect(actions.form_err("error")).toEqual(expected)
+  }
+  it ('should create an action to redirect to forms page', () => {
+    const expected = {
+      type: types.FORMS_REDIRECT
+    }
+    expect(actions.forms_redirect()).toEqual(expected)
+  })
+  it ('should create an action to close the drawer'), () => {
+    const expected = {
+      type: types.CLOSE_DRAWER
+    }
+    expect(actions.close_drawer()).toEqual(expected)
+  }
+  it ('should create an action to create a new form'), () => {
+    const expected = {
+      type: types.FORM_NEW
+    }
+    expect(actions.form_new()).toEqual(expected)
+  }
+
+  it ('should create an action to handle form changes'), () => {
+    const expected = {
+      type: types.FORM_CHANGE,
+      forms: {}
+    }
+    expect(actions.form_change({})).toEqual(expected)
+  }
+
+  it ('should create an action to request form persist'), () => {
+    const expected = {
+      type: types.FORM_SAVE_REQUEST
+    }
+    expect(actions.form_save_request()).toEqual(expected)
+  }
+  it ('should create an action to deal with form persisted'), () => {
+    const expected = {
+      type: types.FORM_SAVE_OK,
+      form: {}
+    }
+    expect(actions.form_save_ok({})).toEqual(expected)
+  }
+  it ('should deal with a form persist call which went wrong'), () => {
+    const expected = {
+      type: types.FORM_SAVE_ERR,
+      reason: ''
+    }
+    expect(actions.form_save_err('')).toEqual(expected)
+  }
+  it ('should create an open form action'), () => {
+    const expected = {
+      type: types.FORM_OPEN,
+      id: 1
+    }
+    expect(actions.form_open(1)).toEqual(expected)
+  }
 })

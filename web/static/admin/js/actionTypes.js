@@ -9,9 +9,22 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST'
 export const LOGOUT_OK      = 'LOGOUT_OK'
 export const LOGOUT_ERR     = 'LOGOUT_ERR'
 
+export const FORM_REQUEST = 'FORM_REQUEST'
+export const FORM_OK      = 'FORM_OK'
+export const FORM_ERR     = 'FORM_ERR'
+export const FORMS_REDIRECT = 'FORM_REDIRECT'
+
+export const FORM_NEW     = 'FORM_NEW'
+export const FORM_OPEN    = 'FORM_OPEN'
+export const FORM_CHANGE  = 'FORM_CHANGE'
+export const FORM_SAVE_REQUEST = 'FORM_SAVE_REQUEST'
+export const FORM_SAVE_OK      = 'FORM_SAVE_OK'
+export const FORM_SAVE_ERR     = 'FORM_SAVE_ERR'
+
 /*
  * ROUTING
  */
 
 export const GOTO_LOGIN = 'GOTO_LOGIN'
 export const GOTO_DASHBOARD = 'GOTO_DASHBOARD'
+export const CLOSE_DRAWER = 'CLOSE_DRAWER'

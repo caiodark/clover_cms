@@ -2,7 +2,7 @@ defmodule CloverCms.Admin.FormControllerTest do
   use CloverCms.ConnCase
 
   alias CloverCms.Form
-  @valid_attrs %{name: "some content"}
+  @valid_attrs %{name: "some content", defMessage: "Ciao"}
   @invalid_attrs %{}
 
   setup %{conn: conn} do
@@ -18,7 +18,7 @@ defmodule CloverCms.Admin.FormControllerTest do
     form = Repo.insert! %Form{}
     conn = get conn, admin_form_path(conn, :show, form)
     assert json_response(conn, 200)["data"] == %{"id" => form.id,
-      "name" => form.name}
+      "name" => form.name, "defMessage"=>form.defMessage}
   end
 
   test "renders page not found when id is nonexistent", %{conn: conn} do
