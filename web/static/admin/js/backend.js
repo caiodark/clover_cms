@@ -10,7 +10,8 @@ import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, dispatch, combineReducers} from 'redux'
 import * as reducers from './reducers'
 import thunkMiddleware from 'redux-thunk'
-import {close_drawer} from './actions'
+import {close_drawer,get_session_from_server} from './actions'
+import fetch from 'isomorphic-fetch'
 
 const Noop = () => {
 }
@@ -26,6 +27,7 @@ let store = createStore(
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__(),
   applyMiddleware(...[rMiddleware, thunkMiddleware])
 )
+store.dispatch(get_session_from_server())
 
 const history = syncHistoryWithStore(hashHistory, store)
 console.log(history)

@@ -193,7 +193,6 @@ export function form_edit(form)
 export function form_save_start(form)
 {
   const req = form.id === undefined ? {url:'/api/admin/forms', method:'post'} : {url: `/api/admin/forms/${form.id}`, method: 'put'}
-  debugger
   return dispatch => {
     dispatch(form_save_request())
     return fetch(req.url, {
@@ -208,5 +207,20 @@ export function form_save_start(form)
     .then(response => response.json())
     .then(json => dispatch(form_edit(json.data)))
     .catch(error => dispatch(form_save_err(`Unexpected error ${error}`)))
+  }
+}
+
+export function session_inject(session)
+{
+  return {type: types.SESSION_INJECT, session}
+}
+
+export function get_session_from_server()
+{
+  return dispatch => {
+    return fetch('/api/admin/users/session', {credentials: 'same-origin'})
+             .then(response => response.json())
+             .then(json => dispatch(session_inject(json.data)))
+	     .then(() => dispatch(redirect_dashboard()))
   }
 }

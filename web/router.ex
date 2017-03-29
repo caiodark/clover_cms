@@ -30,6 +30,7 @@ defmodule CloverCms.Router do
   scope "/api/admin/users", as: :admin do
     pipe_through :api
     post "/authenticate", CloverCms.Admin.UserController, :authenticate
+    get  "/session"     , CloverCms.Admin.UserController, :session
     get  "/logout"      , CloverCms.Admin.UserController, :logout
   end
   

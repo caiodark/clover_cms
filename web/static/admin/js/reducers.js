@@ -158,6 +158,16 @@ export function cmsApp(state = initialState, action)
     case types.FORM_SAVE_ERR:
       let form_save_err = Object.assign({}, state.form_editing, {isSaving: false, errors:[]})
       return Object.assign({}, state, {form_editing: form_save_err})
+    case types.SESSION_INJECT:
+      return Object.assign({}, state, {
+        user: {
+	  isFetching: false,
+	  username: action.session.name,
+	  permissions: action.session.permissions,
+	  loggedIn: true
+	}
+      })
+
     default:
       return state
   }

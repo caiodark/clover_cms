@@ -1,3 +1,4 @@
+require IEx
 defmodule CloverCms.Admin.UserController do
   use CloverCms.Web, :controller
 
@@ -27,6 +28,7 @@ defmodule CloverCms.Admin.UserController do
       end)
       conn
       |> put_session(:username, user.name)
+      |> put_session(:email, user.email)
       |> put_session(:permissions, permissions)
       |> render(name: user.name, permissions: permissions)
     else
@@ -35,9 +37,26 @@ defmodule CloverCms.Admin.UserController do
     end
   end
 
+  #@doc
+  #return the current session data
+  def session(conn, _params) do
+    try do
+      user = User.by_email(get_session(conn, :email)) |> Repo.preload([:user_type_roles_permissions])
+      permissions = Enum.map(user.user_type_roles_permissions, fn (perm) ->
+        %{"can"=> perm.can, "on" => perm.on}
+      end)
+      conn
+      |> render(name: user.name, permissions: permissions)
+    rescue
+      _error ->
+        conn
+        |> send_resp(401, "")
+    end
+  end
+
   def logout(conn, _params) do
     conn
-    |> clear_session
+    |> configure_session(drop: true)
     |> send_resp(200, "")
   end
 end

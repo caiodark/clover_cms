@@ -21,6 +21,8 @@ export const FORM_SAVE_REQUEST = 'FORM_SAVE_REQUEST'
 export const FORM_SAVE_OK      = 'FORM_SAVE_OK'
 export const FORM_SAVE_ERR     = 'FORM_SAVE_ERR'
 
+export const SESSION_INJECT = 'SESSION_INJECT'
+
 /*
  * ROUTING
  */

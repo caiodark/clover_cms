@@ -27,7 +27,8 @@ defmodule CloverCms.User do
   end
 
   def by_email(email) do
-    Repo.one!(CloverCms.User, email: email)
+    query = from user in CloverCms.User, where: user.email == ^email
+    Repo.one(query)
   end
 
   def encrypt_pass(pass) do
