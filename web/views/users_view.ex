@@ -1,3 +1,5 @@
+require IEx
+
 defmodule CloverCms.Admin.UserView do
   use CloverCms.Web, :view
 
@@ -18,11 +20,12 @@ defmodule CloverCms.Admin.UserView do
   end
 
   def render("authenticate.json", %{name: name, permissions: permissions}) do
-    %{data: %{name: name, permissions: render_many(permissions, CloverCms.Admin.PermissionView, "permission_base.json")}}
+    modules = Enum.map(Application.fetch_env!(:clover_cms, :modules), fn mod -> %{module: %{name: Atom.to_string(mod)}} end)
+    %{data: %{name: name, permissions: render_many(permissions, CloverCms.Admin.PermissionView, "permission_base.json"), modules: modules}}
   end
 
   def render("session.json", %{name: name, permissions: permissions}) do
-    %{data: %{name: name, permissions: render_many(permissions, CloverCms.Admin.PermissionView, "permission_base.json")}}
+    modules = Enum.map(Application.fetch_env!(:clover_cms, :modules), fn mod -> %{module: %{name: Atom.to_string(mod)}} end)
+    %{data: %{name: name, permissions: render_many(permissions, CloverCms.Admin.PermissionView, "permission_base.json"), modules: modules}}
   end
- 
 end

@@ -33,11 +33,12 @@ defmodule CloverCms.Router do
     get  "/session"     , CloverCms.Admin.UserController, :session
     get  "/logout"      , CloverCms.Admin.UserController, :logout
   end
-  
+ 
   scope "/api/admin", as: :admin do
     pipe_through :api_authenticated
     resources "/users", CloverCms.Admin.UserController
     resources "/forms", CloverCms.Admin.FormController
+    resources "/languages", CloverCms.Admin.LanguageController
   end
 
   scope "/", CloverCms do

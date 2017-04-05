@@ -6,6 +6,10 @@ config :clover_cms, CloverCms.Endpoint,
   http: [port: 4001],
   server: false
 
+# Configures CMS modules list
+config :clover_cms,
+  modules: []
+
 # Print only warnings and errors during test
 config :logger, level: :warn
 
