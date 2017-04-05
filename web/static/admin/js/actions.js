@@ -12,9 +12,9 @@ export function login_redirect()
   return {type: types.LOGIN_REDIRECT}
 }
 
-export function login_ok(name, permissions)
+export function login_ok(name, permissions, modules)
 {
-  return {type: types.LOGIN_OK, name, permissions}
+  return {type: types.LOGIN_OK, name, permissions, modules}
 }
 
 export function login_err(username, reason)
@@ -35,7 +35,7 @@ export function login_start(username, password)
 	credentials: 'same-origin'
 	})
       .then(response => response.json())
-      .then(json => dispatch(login_ok(json.data.name, json.data.permissions)))
+      .then(json => dispatch(login_ok(json.data.name, json.data.permissions, json.data.modules)))
       .then(() => dispatch(push('/')))
       .catch(error => dispatch(login_err(username, error)))
   }

@@ -9,15 +9,19 @@ import Forms from './CForms'
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware, dispatch, combineReducers} from 'redux'
 import * as reducers from './reducers'
+import * as languageReducers from './languages/reducers'
 import thunkMiddleware from 'redux-thunk'
 import {close_drawer,get_session_from_server} from './actions'
 import fetch from 'isomorphic-fetch'
+import Languages from './languages/CLanguages'
+import Language  from './languages/CLanguage'
 
 const Noop = () => {
 }
 
 const reducer = combineReducers({
   ...reducers,
+  ...languageReducers,
   routing: routerReducer
 })
 
@@ -53,6 +57,8 @@ const BackEnd = () => (
       <Route path="/login" component={LoginCard} />
       <Route path="/" component={DashBoard} onEnter={ AuthReq } />
       <Route path="/forms" component={Forms} onEnter= { CloseDrawerAndAuth(store) } />
+      <Route path="/languages" component={Languages} onEnter = {CloseDrawerAndAuth(store)} />
+      <Route path="/language/:lang" component={Language} onEnter = { AuthReq } />
     </Router>
   </Provider>
 )

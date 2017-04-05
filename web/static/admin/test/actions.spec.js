@@ -32,6 +32,21 @@ describe('actions', () => {
     }
     expect(actions.login_ok(name, permissions)).toEqual(expected)
   })
+  it ('should create an action to deal with a session', () => {
+    const name = "admin"
+    const permissions = []
+    const modules = []
+    const session = {
+      name,
+      permissions,
+      modules
+    }
+    const expected = {
+      type: types.SESSION_INJECT,
+      session
+    }
+    expect(actions.session_inject(session)).toEqual(expected)
+  })
   it ('should create an action to request a Log out', () => {
     const expected = {
       type: types.LOGOUT_REQUEST

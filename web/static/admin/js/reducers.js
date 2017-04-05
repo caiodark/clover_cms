@@ -4,7 +4,8 @@ import { combineReducers} from 'redux'
 const initialState = {
   user: {
     isFetching: false,
-    loggedIn: false
+    loggedIn: false,
+    modules: []
   },
   logout: {
     isFetching: false
@@ -51,6 +52,7 @@ export function cmsApp(state = initialState, action)
 	  isFetching: false,
 	  username: action.name,
 	  permissions: action.permissions,
+	  modules: action.modules,
 	  loggedIn: true
 	}
       })
@@ -58,14 +60,16 @@ export function cmsApp(state = initialState, action)
       return Object.assign({}, state, {
         user: {
 	  isFetching: true,
-	  loggedIn: false
+	  loggedIn: false,
+	  modules: []
 	}
       })
     case types.LOGIN_ERR:
       return Object.assign({}, state, {
         user: {
 	  isFetching: false,
-	  loggedIn: false
+	  loggedIn: false,
+	  modules: []
 	}
       })
     case types.LOGOUT_REQUEST:
@@ -87,7 +91,8 @@ export function cmsApp(state = initialState, action)
 	},
         user: {
 	  isFetching: false,
-	  loggedIn: false
+	  loggedIn: false,
+	  modules: []
 	}
       })
     case types.TOGGLE_DRAWER:
@@ -164,6 +169,7 @@ export function cmsApp(state = initialState, action)
 	  isFetching: false,
 	  username: action.session.name,
 	  permissions: action.session.permissions,
+	  modules: action.session.modules,
 	  loggedIn: true
 	}
       })

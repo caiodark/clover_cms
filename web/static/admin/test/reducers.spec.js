@@ -15,14 +15,14 @@ describe('reducers', () => {
   it('should complete logout when receive logout_ok action', ()=>{
     const action = actions.logout_ok()
     const state = {}
-    const expected = {logout:{isFetching:false}, user:{isFetching: false, loggedIn: false}} 
+    const expected = {logout:{isFetching:false}, user:{isFetching: false, loggedIn: false, modules:[]}} 
     const result = cmsApp(state, action)
     expect(result.logout).toEqual(expected.logout)
     expect(result.user).toEqual(expected.user)
   })
   it('should fail logout when receive logout_err action', ()=>{
     const action = actions.logout_err("errore")
-    const state = {user:{isFetching:false, name:"admin", permissions:[], loggedIn: true}}
+    const state = {user:{isFetching:false, name:"admin", permissions:[], loggedIn: true, modules:[]}}
     const expected = {logout:{isFetching:false}, user:state.user} 
     const result = cmsApp(state, action)
     expect(result.logout).toEqual(expected.logout)
@@ -31,13 +31,13 @@ describe('reducers', () => {
   it('should request a login when receive login_request action', ()=>{
     const action = actions.login_request("test","test")
     const state = {}
-    const expected = {user:{isFetching: true, loggedIn:false}}
+    const expected = {user:{isFetching: true, loggedIn:false, modules: []}}
     expect(cmsApp(state, action).user).toEqual(expected.user)
   })
   it('should fail a login when receive login_err action', ()=>{
     const action = actions.login_err("test","error")
     const state = {}
-    const expected = {user:{isFetching: false, loggedIn:false}}
+    const expected = {user:{isFetching: false, loggedIn:false, modules: []}}
     expect(cmsApp(state, action).user).toEqual(expected.user)
   })
   it('should populate the user when receive login_ok action', ()=>{

@@ -1,0 +1,10 @@
+export const LANGUAGES_REQUEST = "LANGUAGES_REQUEST"
+export const LANGUAGES_OK      = "LANGUAGES_OK"
+export const LANGUAGES_ERR     = "LANGUAGES_ERR"
+
+export const LANGUAGE_NEW	   = "LANGUAGE_NEW"
+export const LANGUAGE_SAVE_REQUEST = "LANGUAGE_SAVE_REQUEST"
+export const LANGUAGE_SAVE_OK      = "LANGUAGE_SAVE_OK"
+export const LANGUAGE_SAVE_ERR     = "LANGUAGE_SAVE_ERR"
+export const LANGUAGE_CHANGE       = "LANGUAGE_CHANGE"
+export const LANGUAGE_OPEN         = "LANGUAGE_OPEN"
